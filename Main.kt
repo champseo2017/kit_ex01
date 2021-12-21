@@ -1,56 +1,24 @@
 fun main(args: Array<String>) {
-/* When
-* val ext = ".kt"
-    when (ext) {
-      ".kt" -> print("Kotlin File")
-      ".java" -> print("Java File")
-      else -> print("Unknown")
+/* for-in
+for (x in 1..10) {
+        println(x)
     }
-*
-* val country = "Mexico"
-    when (country) {
-        "UK", "USA" -> print("English")
-        "Spain", "Mexico" -> print("Spanish")
-        "China", "Taiwan" -> print("Chinese")
-    }
-    * val date = 1
-    val month = 10
-    when {
-        date == 1 && month == 1 -> print("วันขึ้นปีใหม่")
-        date == 14 && month == 2 -> print("วันวาเลนไทน์")
-        date >= 13 && date <= 15 && month == 4 -> print("วันสงกรานต์")
-        date == 1 || date == 16 -> print("วันนี้รวย")
-    }
-    *
-    * val score = 75
-    var grade = 'F'
-    when (score) {
-        in 80..100 -> grade = 'A'
-        in 79 downTo 60 -> grade = 'B'
-        in 0 until 60 -> grade = 'F'
-        !in 0..100 -> {
-            grade = ' '
-            print("Score Error")
+
+    val min = 1
+    val max = 100
+    var count = 0
+    for (i in min..max) {
+        if (i % 3 == 0) {
+            count++
         }
     }
-    *
-    *  var a: Any = 123.45F
-    var result: Int
-    when (a) {
-        is String -> result = a.toDouble().toInt()
-        is Double -> result = a.toInt()
-        is Float -> result = a.toInt()
-        else -> result = 0
-    }
-    *
-    * val device = "Oppo"
-    val os = when (device) {
-        "Oppo", "Vivo", "Samsung", "Sony" -> "Android"
-        "iPhone" -> "iOS"
-        "iPad" -> "iPadOS"
-        else -> "Unknown"
-    }
-    print(os)
-* */
+    print("จาก $min - $max มีเลขที่ 3 หารลงตัวเท่ากับ $count จำนวน")
 
+    for (a in 0 until 100 step 10) {
+        println(a)
+    }
+* */
+    for (i in 10 downTo 1) {
+        println(i)
+    }
 }
