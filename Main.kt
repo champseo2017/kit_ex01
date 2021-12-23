@@ -1,21 +1,21 @@
 fun main(args: Array<String>) {
 /*
-วนลูปให้ครบตามจำนวนครั้งที่กำหนด โดยไม่ได้นำค่าตัวแปรของลูปไปใช้งานไดๆ สามารถเปลี่ยนไปใช้ ฟังก์ชัน repeat แทนลูปแบบ for-in ได้
-
-repeat(5) {
-    println("Kotlin")
-}
-val base: Int = 10
-    val power: Int = 3
-    if (power >= 0) {
-        var result = 1
-        repeat (power) {
-            result *= base
-        }
-        print("$base and $power = $result")
-    } else {
-        print("เลชชี้กำลังต้องมากกว่าหรือเท่ากับศูนย์")
+การใช้ลูปแบบ while
+var n = 1
+    while ((n * n) < 100) {
+        n += 1
     }
+    print("n = $n")
+
+    var validCode = false
+    while (validCode == false) {
+        print("กรุณาใส่รหัสผ่าน >>")
+        var code = readLine()
+        if (code == "1234") {
+            validCode = true
+        }
+    }
+    print("คุณใส่รหัสถูกต้อง")
 * */
 
 }
