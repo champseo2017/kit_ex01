@@ -1,24 +1,21 @@
 fun main(args: Array<String>) {
-/* for-in
-for (x in 1..10) {
-        println(x)
-    }
+/*
+วนลูปให้ครบตามจำนวนครั้งที่กำหนด โดยไม่ได้นำค่าตัวแปรของลูปไปใช้งานไดๆ สามารถเปลี่ยนไปใช้ ฟังก์ชัน repeat แทนลูปแบบ for-in ได้
 
-    val min = 1
-    val max = 100
-    var count = 0
-    for (i in min..max) {
-        if (i % 3 == 0) {
-            count++
+repeat(5) {
+    println("Kotlin")
+}
+val base: Int = 10
+    val power: Int = 3
+    if (power >= 0) {
+        var result = 1
+        repeat (power) {
+            result *= base
         }
-    }
-    print("จาก $min - $max มีเลขที่ 3 หารลงตัวเท่ากับ $count จำนวน")
-
-    for (a in 0 until 100 step 10) {
-        println(a)
+        print("$base and $power = $result")
+    } else {
+        print("เลชชี้กำลังต้องมากกว่าหรือเท่ากับศูนย์")
     }
 * */
-    for (i in 10 downTo 1) {
-        println(i)
-    }
+
 }
