@@ -1,21 +1,32 @@
 fun main(args: Array<String>) {
 /*
-การใช้ลูปแบบ while
-var n = 1
-    while ((n * n) < 100) {
-        n += 1
-    }
-    print("n = $n")
-
-    var validCode = false
-    while (validCode == false) {
-        print("กรุณาใส่รหัสผ่าน >>")
-        var code = readLine()
-        if (code == "1234") {
-            validCode = true
+for loop
+var str = ""
+    for (i in 1..4) {
+        str = ""
+        for (j in 1..i) {
+            str += "$j" + " "
         }
+        println(str)
     }
-    print("คุณใส่รหัสถูกต้อง")
+
+    var sum = 0
+    for (i in 1..10) {
+        if (i == 5) {
+            break
+        }
+        sum += i
+    }
+    print(sum)
+
+    var sum = 0
+    for (i in 1..10) {
+        if (i == 5) {
+            continue
+        }
+        sum += i
+    }
+    print(sum)
 * */
 
 }
