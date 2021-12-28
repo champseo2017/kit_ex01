@@ -32,6 +32,20 @@ val size = Pair(50, 100)
     val vowels = arrayOf('a', 'e', 'i', 'o', 'u')
     val data = arrayOf(1, true, "three")
     val emptyArray = arrayOf()
+
+    การสร้างอาร์เรย์ของชนิดข้อมูลพื้นฐาน
+    val oddNums: IntArray = IntArray(3);
+    oddNums[0] = 1
+    oddNums[1] = 2
+    oddNums[2] = 3.5 // Erro ต้องเป็น Int ตามชื่อคลาสเท่านั้น
+    oddNums[3] = 4 // Error สมาชิกมีได้เพียง 3 ตัว
+    val vowels = CharArray(5)
+    vowels[0] = 'e'
+
+    val evenNums: IntArray = intArrayOf(2, 4, 6, 8, 10)
+    val doubleNums = doubleArrayOf(1.23, 4.56, 7.89)
+    val vowels = charArrayOf('a', 'e', 'i', 'o', 'u')
+    val floatNums: FloatArray = floatArrayOf(11.12f, 13.14f, 555f)
 * */
 
 }
