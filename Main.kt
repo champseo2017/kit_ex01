@@ -4,59 +4,68 @@ import java.text.NumberFormat
 import java.text.DecimalFormat
 fun main(args: Array<String>) {
 /*
-    ฟังก์ชันการคำนวณ
-    val radius = 10
-    val circleArare = PI  * radius.pow(2)
+    Function & Lambda
+    fun printOneToTen() {
+        for (i in 1..10) {
+            println(i)
+        }
+    }
+    fun oddEven(num: Int) {
+            if (num % 2 == 0) {
+                print("Even")
+            } else {
+                print("Odd")
+            }
+        }
 
-    การสร้างเลขสุ่ม
-    val a = Random.nextInt()
-    val b = Random.nextInt(1000) // ได้เลขที่มีค่าน้อยกว่า 1000
-    val c = Random.nextInt(100, 1000) // 100 - 999
-    val d = Random.nextDouble() // 0.387
-    val bool = Random.nextBoolean() // true false
-    val bytes = Random.nextBytes(3)
+        fun repeatString(str: String, times: Int, separator: String) {
+        if (str != "" && times > 0) {
+            var text = ""
+            for (i in 1..times) {
+                if (i > 1) {
+                    text += separator
+                }
+                text += str
+            }
+            print(text)
+        }
+    }
 
-    การจัดรูปแบบตัวเลข
-    getInstance() 12345 => 12,345 หรือ 1141.59265 => 1,141.592
-    getCurrencyInstance() -> มี $ หรือ ฿ นำหน้า มี , คั่นหลักพันให้ด้วย และ มีทศนิยม 2 ตำแหน่ง
-    getIntegerInstance() จัดรูปแบบเฉพาะส่วนจำนวนเต็ม โดยมี , คั่นหลักพัน ทศนิยมถูกตัดทิ้ง
-    getPercentInstance() จัดรูปแบบเป็นเปอร์เซ็นต์ คือ คูณด้วย 100 เช่น 0.75 -> 75%
+    fun thaiLongDate(day: Int, month: Int, yearCE: Int) {
+        // เปลี่ยนแปลงค่าของ พารามิเตอร์
+        var m = arrayOf("มกราคม")
+        // yearCE += 543 Error
+        var yearBE = yearCE
+        yearBE += 543
+        print("$day ${m[month - 1] } $yearBE")
+    }
 
-    var numFormat = NumberFormat.getInstance()
-    var str = numFormat.format(1234567.89)
+    การเรียกใช้ฟังก์ชัน
+    fun main() {
+      printSawasdee()
+    }
+    fun printSawasdee() {
+        print("สวัสดี")
+    }
 
-    numFormat = NumberFormat.getCurrencyInstance()
-    str = numFormat.format(2596530)
-    println(str)
-
-    val numFormat = NumberFormat.getInstance()
-    numFormat.minimumIntegerDigits = 10
-    numFormat.minimumFractionDigits = 4
-    val str = numFormat.format(1234567.89)
-    println(str)
-
-    val num = numFormat.parse(str) // แปลงเป็นชนิดข้อมูลพื้นฐาน
-    val x = num.toDouble()
-    println(x)
-
-    คลาส DecimalFormat
-
+    การส่งผลลัพธ์กลับจากฟังก์ชัน
 * */
-    val pattern = "#,#"
-    var decimalFormat = DecimalFormat()
-    var str = decimalFormat.format(1234567)
-    println(str)
-
-    decimalFormat.applyPattern("00000")
-    str = decimalFormat.format(123)
-    println(str)
-
-    decimalFormat.applyPattern("#.##%")
-    str = decimalFormat.format(0.086)
-    println(str)
-
-    decimalFormat.applyPattern("00.00")
-    str = decimalFormat.format(1.2)
-    println(str)
-
+    val n : Int = add(10, 20)
+    val m = add(40, 50)
+    val friday = thaiDayName(6)
+    println("วันนี้ตรงกับวัน ${thaiDayName(1)}")
+    println("30 + 40 = ${add(30, 40)}")
 }
+    fun add(n1: Int, n2: Int) : Int {
+        val a = n1 + n2
+        return a
+    }
+
+    fun thaiDayName(dayOfWeek: Byte) : String {
+        val dayNames = arrayOf("อาทิตย์", "อาทิตย์", "อาทิตย์", "อาทิตย์", "อาทิตย์", "อาทิตย์", "อาทิตย์")
+        if (dayOfWeek in 1..7) {
+            return  dayNames[dayOfWeek - 1]
+        } else {
+            return ""
+        }
+    }
