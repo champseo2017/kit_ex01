@@ -3,39 +3,22 @@ import kotlin.random.*;
 import java.text.NumberFormat
 import java.text.DecimalFormat
 /*
-   การส่งหลายๆ ค่ากลับจากฟังก์ชัน
-    fun oneToTenEvenNums() : IntArray {
-        return intArrayOf(2, 4, 6, 8, 10)
-    }
-
-    fun getVowels() : Array<String> {
-        return arrayOf("a", "e", "i", "o", "u")
-    }
-    var vowels = getVowels()
-    for (v in vowels) {
-        println(v)
-    }
-    การส่งค่ากลับแบบ Pair หรือ Triple
-     val sum = summation(10, 15, 18, 22)
-    print("sum: ${sum.first}, average: ${sum.second}")
-    fun summation(vararg data: Int) : Pair<Int, Double> {
-        var sum = 0
-        for (n in data) {
-            sum += n
-        }
-        var average = sum.toDouble() / data.count().toDouble()
-        return Pair(sum, average)
-    }
+   ฟังก์ชันแบบโอเวอร์โหลด
 * */
 fun main(args: Array<String>) {
-    val sum = summation(10, 15, 18, 22)
-    print("sum: ${sum.first}, average: ${sum.second}")
+    val a = max(10, 20) // ฟังก์ชัน max(Int, Int) จะถูกเรียก
+    val b = max(10.5, 20.5) // ฟังก์ชัน max(Double, Double) จะถูกเรียก
+    val c = max(108, 1009, 189) // ฟังกชัน max(Int, Int, Int)
+    val d = max(9.9, 10.9, 11.9)
 }
-    fun summation(vararg data: Int) : Pair<Int, Double> {
-        var sum = 0
-        for (n in data) {
-            sum += n
-        }
-        var average = sum.toDouble() / data.count().toDouble()
-        return Pair(sum, average)
+    fun max(n1: Int, n2: Int) = if (n1 >= n2) n1 else n2
+    fun max(n1: Int, n2: Int, n3: Int): Int {
+        var mx = n1
+        mx = if (n2 > mx) n2 else mx
+        mx = if (n3 > mx) n3 else mx
+        return mx
+    }
+    fun max(n1: Double, n2: Double) = if (n1 >= n2) n1 else n2
+    fun max(n1: Double, n2: Double, n3: Double) : Double {
+        // เช่น เดียวชนิด Int
     }
