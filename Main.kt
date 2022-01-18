@@ -15,7 +15,27 @@ import java.text.DecimalFormat
     for (v in vowels) {
         println(v)
     }
+    การส่งค่ากลับแบบ Pair หรือ Triple
+     val sum = summation(10, 15, 18, 22)
+    print("sum: ${sum.first}, average: ${sum.second}")
+    fun summation(vararg data: Int) : Pair<Int, Double> {
+        var sum = 0
+        for (n in data) {
+            sum += n
+        }
+        var average = sum.toDouble() / data.count().toDouble()
+        return Pair(sum, average)
+    }
 * */
 fun main(args: Array<String>) {
-
+    val sum = summation(10, 15, 18, 22)
+    print("sum: ${sum.first}, average: ${sum.second}")
 }
+    fun summation(vararg data: Int) : Pair<Int, Double> {
+        var sum = 0
+        for (n in data) {
+            sum += n
+        }
+        var average = sum.toDouble() / data.count().toDouble()
+        return Pair(sum, average)
+    }
