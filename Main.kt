@@ -1,21 +1,22 @@
 import java.util.*
 import java.*;
 import kotlin.random.*;
-// การใช้คำสั่ง throw
-// ถ้าเราโยนข้อผิดพลาดในฟังก์ชันอื่น จุดที่เรียกฟังก์ชันนั้นขึ้นมาทำงานต้องอยู่ในบล็อก try
-// แล้วข้อผิดพลาดจะถูกส่งมายังบล็อก catch ที่ใช้คู่กัน
-// Kotlin จะต้องเรียกฟังก์ชันที่มีการโยนข้อผิพลาดออกมาไว้ในบล็อก try เสมอ
-fun main(args: Array<String>) {
-    try {
-        test()
-    } catch (ex: Exception) {
-        print(ex.message)
+
+// เมธอดของคลาส
+class Calculator {
+    fun add(n1: Double, n2: Double) : Double {
+        return n1 + n2
+    }
+    fun subtract(n1: Int, n2: Int) = n1 - n2
+    fun subtract(n1: Double, n2: Double) = n1 - n2 // Overload
+    fun cal(n1: Double, n2: Double, action: (Double, Double) -> Double ) : Double {
+        return action(n1, n2)
     }
 }
-
-fun test() {
-    val y = 0
-    if (y == 0) {
-        throw Exception("ตัวหารเป็น 0 ไม่ได้")
-    }
+fun main(args: Array<String>) {
+    val c = Calculator() // สร้างอินสแตนซ์ของคลาส Calculator
+    val x = c.add(10.0, 20.1)
+    val y = c.subtract(n1 = 2, n2 = 50)
+    val z = c.cal(30.0, 5.0) {a, b -> a * b}
+    println(z)
 }
