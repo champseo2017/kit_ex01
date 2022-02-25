@@ -1,24 +1,26 @@
 import java.util.*
 import java.*;
-// การใช้ try-catch ในแบบ Expression
-// เราอาจใช้คำสั่ง try-catch ในลักษณะของ Expression เช่น การคืนค่าให้กับตัวแปร
-// หรือฟังก์ชัน เหมือนกับกรณีของ if-else หรือ when เช่น
+import kotlin.random.*;
+// การใช้คำสั่ง finally
+// คำสั่ง finally ใช้สำหรับกำหนดบล็อกที่จะดำเนินการเสมอ ไม่ว่าจะเกิดข้อผิดพลาด
+// หรือไม่ก็ตาม ซึ้งรูปแบบโดยทั่วไปเราจะวางบล็อก finally ไว้ถัดจากบล็อก catch
+/*
+*  try {
+* } catch (...) {
+* } finally {
+*  // สิ่งที่ต้องการให้ทำเสมอ ไม่ว่าจะเกิดข้อผิดพลาดหรือไม่ก็ตาม
+* }
+*
+* ในบางกรณี แม้จะมีข้อผิดพลาดที่เกิดขึ้น หากเราไม่มีวิธีจัดการใดๆ แต่มีสิ่งที่ต้องดำเนินการเสอ
+*  ไม่ว่าจะเกิดข้อผิดพลาดหรือไม่ก็ตาม ก็อาจจะใช้แค่ try กับ finally โดยตัดบล็อก catch
+*  ออกไป
+*  try {
+* } finally {
+* }
+*  หากเรานำบล็อก try-catch-finally ไปใช้งานในแบบ Expression คำสั่งในบล็อก finally
+*  จะไม่มีผลใดๆ ดังนั้น กรณีดังกล่าว จึงควรใช้เฉพาะ try-catch เท่านั้น แต่ไม่ควรใช้ finally
+*   ร่วมด้วย
+* */
 fun main(args: Array<String>) {
-    print("กรุณาใส่ตัวเลขจำนวนเต็ม >>")
-    var str: String? = readLine()
-    var n: Int = try {
-        str!!.toInt()
-    } catch (ex: Exception) {
-        0 // หากเกิดข้อผิดพลาด ให้ส่งค่า 0 กลับไป
-    }
-    println(n)
-}
 
-fun isValidDate(day: Int, month: Int, year: Int) : Boolean {
-    return try {
-        java.time.localDate.of(year, month, day)
-        true
-    } catch (ex: Exception) {
-        false
-    }
 }
