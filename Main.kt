@@ -1,27 +1,30 @@
 import java.util.*
 import java.*;
 import kotlin.random.*;
-// คอนสตรักเตอร์ของคลาส
-// Primary Constructor แบบพารามิเตอร์
-// - รับข้อมูลเข้ามาในคลาสด้วยรูปแบบของพารามิเตอร์ โดยนำมาเขียนไว้ที่ส่วนหัวของคลาส
-// คล้ายกับพารามิเตอร์ของฟังก์ชัน แต่ไม่ต้องระบุคีย์เวิร์ด var หรือ val เพราะไม่ใช้พร็อปเพอร์ตี้
-// ต้องสร้างพร็อปเพอร์ตี้เพื่อจัดเก็บข้อมูลที่รับเข้ามาและการใช้งานต่างๆ ก็ทำผ่านพร็อปเพอร์ตี้เหล่านั้น
+// Secondary Constructor
+// ที่ส่วนหัวของคลาส (Class Header) ไม่ต้องระบุการรับข้อมูลใดๆ
+// ให้สร้างเมธอดพิเศษที่ต้องกำหนดชื่อเป็นคำว่า constructor เท่านั้น แล้วรับข้อมูลเข้า
+// มาในคลาสผ่านทางเมธอดนี้ด้วยรูปแบบเดียวกับของพารามิเตอร์ของฟังก์ชัน
+// ต้องสร้างพร็อปเพอร์ตี้เพื่อจัดเก็บข้อมูลที่รับเข้ามา ไม่ต้องกำหนดค่าเริ่มต้นให้กับพร็อปเพอร์ตี้
+// เมธอด constructor จะถูกเรียกใช้งานโดยอัตโนมัติ เมื่อเราสร้างอินสแตนซ์ของคลาสนั้น
+// แต่เราจะเรียกใช้งานโดยตรงเหมือนกับเมธอดทั่วๆ ไปไม่ได้
 
-class Triangle(base: Int, height: Int) { // ไม่ต้องระบุคีย์เวิร์ด var หรือ val
-    // สร้างพร็อปเพอร์ตี้ แล้วนำค่าจากพารามิเตอร์มากำหนดให้กับมัน
-    // โดยใช้ชื่อพร็อปเพอร์ตี้ อาจเหมือนหรือต่างจากชื่อพารามิเตอร์ก็ได้
-    var base: Int = base
-    var height: Int = height
-
-    fun getArea() = 0.5 * this.base * this.height
-    // ใช้ this เพื่อความชัดเจนในการอ้างถึงพร็อปเพอร์ตี้ หรือจะไม่ใช้ this ก็ได้ เช่น
-    // fun getArea() = 0.5 * base * height
-
+class Rectangle {
+    var width: Int // ไม่จำเป็นต้องกำหนดค่าเริ่มต้น
+    var height: Int
+    constructor(width: Int, height: Int) {
+        // นำค่าจากพารามิเตอร์ไปเก็บในพร็อปเพอร์ตี้
+        // ถ้าตั้งชื่อ พารามิเตอร์เหมือนกับพร็อปเพอร์ตี้ ให้ใช้ this
+        this.width = if (width > 0) width else 0
+        this.height = if (height > 0) height else 0
+    }
+    fun getArea() : Int = this.width * this.height
 }
+
+
 fun main(args: Array<String>) {
-    val t = Triangle(5, 10)
-    println(t.getArea())
-    t.base = 15
-    t.height = 4
-    println(t.getArea())
+    val rect = Rectangle(width = 10, height = 15)
+    println(rect.getArea())
+    rect.height = 20
+    println(rect.getArea())
 }
