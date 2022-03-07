@@ -2,26 +2,32 @@ import java.util.*
 import java.*;
 import kotlin.random.*;
 // Companion Object
-// สามารถเข้าถึงสมาชิก (เมธอดหรือ พร็อปเพอร์ตี้) ผ่านชื่อคลาสโดยตรง และในกรณีของ
-// พร็อปเพอร์ตี้ จะใช้ข้อมูลร่วมกันระหว่างคลาส ซึ้งก็เทียบได้กับโมดิฟายเออร์แบบ static
-// ที่ใช้ใน Java หรือ Swift
-// ไม่สามารถใช้กับคอนสตรักเตอร์ได้
-// ให้สร้างบล็อกด้วยคำสั่ง companion object {}
-// แล้วกำหนดสมาชิกไว้ในบล็อก {}
-// การเข้าถึงสมาชิกที่อยู่ใน Companion Object จากภายนอกคลาส ให้ระบุผ่านชื่อ
-// คลาสโดยตรงเท่านั้น (ไม่สามารถเรียกผ่านอินสแตนซ์ได้)
-
-class Circle {
+// ภายในคลาสเดียวกัน เมธอดที่กำหนดในบล็อก Companion Object จะเรียกใช้ได้
+// เฉพาะสมาชิกที่อยู่ใน Companion Object ด้วยกันเองเท่านั้น แต่ไม่สามารถเรียกใช้
+// สมาชิกที่อยู่นอกบล็อกดังกล่าวได้
+// แต่เมธอดที่อยู่นอก บล็อก Companion Object สามารถเรียกใช้ได้ทั้งเมธอดหรือ
+// พร็อปเพอร์ตี้ที่อยู่ในบล็อก Companion Object
+class Circle(var radius: Int) {
+    var PI: Double = 3.141
     companion object {
-        var PI: Double = 3.141
-        fun area(radius: Int) = PI * radius * radius
-        fun perimeter(radius: Int) = 2 * PI * radius
+        val className: String = "Circle"
+        // fun area() = PI * radius * radius
+        // เกิด Error เพราะเรียกใช้พร็อปเพอร์ตี้ PI และ radius
+        // ซึ้งไม่ใช้ Companion Object
+//        fun perimeter(r: Int) : Double {
+//            r = checkValue(r) // Error
+//            return 2 * PI * r
+//        }
+          // เกิด Error เพราะเรียกใช้เมธอด checkValue() ซึ้งไม่ใช้ Companion Object
     }
+    private  fun checkValue(v: Int) : Int {
+        return if (v > 0) v else 0
+    }
+    fun getClassName() : String = className // OK
+    // OK เพราะเมธอดที่ไม่ใช้ Companion Object
+    // สามารถเรียกใช้เมธอดหรือพร็อปเพอร์ตี้ที่เป็นเป็น Companion Object ได้
 }
 
 fun main(args: Array<String>) {
-   val a = Circle.area(10) // เรียกใช้งานผ่านชื่อคลาสโดยตรง
-    val b = Circle.perimeter(20) // เรียกใช้งานผ่านชื่อคลาสโดยตรง
-    val c = Circle()
-    // val d = c.area(50) // Error เรียกผ่านอินสแตนซ์ไม่ได้
+
 }
