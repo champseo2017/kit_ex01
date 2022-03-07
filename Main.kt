@@ -1,39 +1,27 @@
 import java.util.*
 import java.*;
 import kotlin.random.*;
-// พร็อปเพอร์ตี้แบบ lateinit
-// การใช้คำสั่ง lateinit ไม่สามารถใช้ lateinit กับชนิดข้อมูลพื้นฐานได้
-// (Primitive Type) เช่น Int, Double, Float, Byte, Long, Boolean, Char เป็นต้น
-// ยกเว้นชนิด String (Kotlin ไม่จัดว่า String เป็น Primitive Type)
-// โดยส่วนใหญ่ เรามักใช้ lateinit กับพร็อปเพอร์ตี้ที่มี Type เป็นคลาสชนิดใดชนิดหนึ่ง
-// และต้องการสร้าง อินสแตนซ์ของมันในภายหลังเมื่อต้องการใช้งาน
+// Companion Object
+// สามารถเข้าถึงสมาชิก (เมธอดหรือ พร็อปเพอร์ตี้) ผ่านชื่อคลาสโดยตรง และในกรณีของ
+// พร็อปเพอร์ตี้ จะใช้ข้อมูลร่วมกันระหว่างคลาส ซึ้งก็เทียบได้กับโมดิฟายเออร์แบบ static
+// ที่ใช้ใน Java หรือ Swift
+// ไม่สามารถใช้กับคอนสตรักเตอร์ได้
+// ให้สร้างบล็อกด้วยคำสั่ง companion object {}
+// แล้วกำหนดสมาชิกไว้ในบล็อก {}
+// การเข้าถึงสมาชิกที่อยู่ใน Companion Object จากภายนอกคลาส ให้ระบุผ่านชื่อ
+// คลาสโดยตรงเท่านั้น (ไม่สามารถเรียกผ่านอินสแตนซ์ได้)
 
-class Circle(private  var radius: Double) {
-    fun perimeter() : Double {
-        return 3.14 * radius * radius
+class Circle {
+    companion object {
+        var PI: Double = 3.141
+        fun area(radius: Int) = PI * radius * radius
+        fun perimeter(radius: Int) = 2 * PI * radius
     }
 }
 
-class Rectangle(private var width: Double, private var height: Double) {
-    fun area() : Double {
-        return width * height
-    }
-}
-
-class Shape {
-    private  lateinit var circle: Circle
-    private  lateinit var rect: Rectangle
-    fun circlePerimeter(radius: Double) : Double {
-        circle = Circle(radius)
-        return circle.perimeter()
-    }
-    fun rectArea(width: Double, height: Double) : Double {
-        rect = Rectangle(width, height)
-        return rect.area()
-    }
-}
 fun main(args: Array<String>) {
-    val shape = Shape()
-    println(shape.circlePerimeter(10.1)) // อินสแตนซ์ของ Circle จะถูกสร้างขึ้น
-    println(shape.rectArea(10.1, 20.1)) // อินสแตนซ์ของ Rectangle จะถูกสร้างขึ้น
+   val a = Circle.area(10) // เรียกใช้งานผ่านชื่อคลาสโดยตรง
+    val b = Circle.perimeter(20) // เรียกใช้งานผ่านชื่อคลาสโดยตรง
+    val c = Circle()
+    // val d = c.area(50) // Error เรียกผ่านอินสแตนซ์ไม่ได้
 }
