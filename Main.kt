@@ -1,49 +1,32 @@
 import java.util.*
 import java.*;
 import kotlin.random.*;
-
-enum class Direction {
-    NORTH, EAST, SOUTH, WEST
+// การใช้ฟังก์ชัน apply กับสมาชิกของคลาส
+class Spy  {
+    var name = ""
+    var code = ""
+    var yearBorn = 0
+    fun getAge() = java.time.LocalDate.now().year - yearBorn
 }
-
-enum class DayOfWeek {
-    SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-    THURSDAY, FRIDAY, SATURDAY
-}
-
-enum class MobileOS { ANDROID, IOS }
-
-enum class Storage { GB16, GB32, GB64, GB128, GB256, GB512 }
-
-class Device {
-    private var os: MobileOS = MobileOS.ANDROID
-    var storage: Storage = Storage.GB64
-
-    fun setOS(os: MobileOS) {
-        this.os = os
-    }
-
-    fun getOS() : MobileOS = this.os
-
-}
-
-enum class Gender (var value: String) { // Primary Constructor
-    MALE("ชาย"), FEMALE("หญิง"), SHEMALE ("เพศที่สาม")
-}
-
-enum class Result(val value: Byte) { // enum แบบมี value ต้องกำหนด Primary Constructor
-    WON (3), DRAWN (1), LOST(0)
-}
-
+/*
+* val spy = Spy()
+    spy.name = "James Bond"
+    spy.code = "007"
+    spy.yearBorn = 1980
+    println(spy.name)
+    println(spy.code)
+    println(spy.getAge())
+* จากโค้ด จะเห็นได้ว่า เราต้องระบุอินสแตนซ์เดิมซ้ำๆ หลายครั้ง ดังนั้นใน Kotlin จึงมีฟังก์ชัน
+*  apply
+* */
 fun main(args: Array<String>) {
-   var gen = Gender.FEMALE.value // หญิง
-    Gender.SHEMALE.value = "กระเทย"
-    // เนื่องจากระบุคอนสตรักเตอร์ด้วย var จึงเปลี่ยนค่าได้
-
-    println("ถ้าชนะจะได้ ${Result.WON.value} คะแนน")
-
-    var score = 0
-    var r: Result = Result.DRAWN
-    score += r.value
-    println("ถ้าแพ้จะได้ ${score} คะแนน")
+    val spy = Spy()
+    spy.apply {
+        name = "James Bond"
+        code = "007"
+        yearBorn = 1980
+        println(name)
+        println(code)
+        println(getAge())
+    }
 }
