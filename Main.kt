@@ -1,50 +1,33 @@
 import java.util.*
 import java.*;
 import kotlin.random.*;
+// คอนสตรักเตอร์กับการสืบทอด
+// ตามหลักการของ Kotlin เมื่อสืบทอดจากคลาสใด ต้องส่งข้อมูลให้แก่คอนสตรักเตอร์ของ
+// คลาสนั้นเสมอ ใน Kotlin อาจมีคอนสตรักเตอร์เป็นแบบ Primary และ Seconday ก็ได้
+// โดยคลาสที่สืบทอด จึงต้องกำหนดวิธีการส่งข้อมูลให้สอดคล้องกัน
+// กรณีที่ Superclass ไม่มีคอนสตรักเตอร์
+// ทุกๆ คลลาสต้องมี Default Constructor เสมอ ไม่มีพารามิเตอร์ใดๆ คอมไฟเลอร์
+// จะสร้างให้เองโดยอัตโนมัติ ดังนั้นถ้าเราสืบทอดจากคลาสที่ไม่มีคอนสตรักเตอร์แบบมีพารามิเตอร์
 
-// เช่น ต้องการสืบทอดจากคลาสที่ชื่อ OldClass ก็เขียนโ้ดได้ดังนี้
-// class NewClass: OldClass () {}
-// Kotlin ไม่สนับสนุนการสืบทอดจากคลาสคลาส (Multiple Inheritance) แต่ละคลาส
-// จะสืบทอดได้เพียงคลาสเดียวเท่านั้น
-// คลาสต่างๆ จะสืบทอดต่อเนื่องกันกี่ชั้นก็ได้ หากระบุโมดิฟายเอร์ open เช่น คลาส B สืบ
-// ทอดจาก A และคลาส C สืบทอดจาก B เป็นต้น
-/*
-* open class A { // โมดิฟายเอร์ open เพื่อบ่งชี้ว่า คลาสนี้สามารถสืบทอดได้
-* }
-* open class B : A() {
-* }
-* class C : B() {
-* }
-*
-* class D : C() {} // Error เพราะคลาส C ไม่ระบุโมดิฟายเออร์ open จึงสืบทอดไม่ได้
-*
-* สมมุติมี 2 คลาส คลาส Person และ Programmer
-*
-*
-*
-* */
+// 1. ใส่เป็นวงเล็บ () ว่างๆ ต่อท้ายชื่อ Superclass ซึ้งหมายถึงการเรียก Default Constructor
+// ของ Superclass
+// 2. สร้างคอนสตรักเตอร์แบบ Seconday แล้วระบุคำสั่ง super() ต่อท้าย
 open class Person {
-    var name: String = ""
-    var yearBorn: Int = 0
-    fun getAge() = java.time.LocalDate.now().year - yearBorn
+    // ไม่กำหนด Secondary Constructor
+    // คลาสนี้ มีเฉพาะ Default Constructor
 }
-//class Programmer {
-//    var name: String = ""
-//    var yearBorn: Int = 0
-//    var salary: Int = 0
-//    var expertLanguage: String = ""
-//    fun getAge() = java.time.LocalDate.now().year - yearBorn
-//}
-// จากโค้ด เราให้คลาส Person แทนคน คลาส Programmer แทนลักษณะของคนที่เป็น
-// โปรแกรมเมอร์ จะเห็นว่า Person จะซ้ำกับ Programmer แต่หากเราเปลี่ยนมาใช้วิธีการสืบ
-// ทอด โดยให้คลาส Programmer สืบทอดจากคลาส Person
-class Programmer: Person() {
-    var salary: Int = 0
-    var expertLanguage: String = ""
+class Programmer: Person() {  // เรียก Default Constructor ของ Person
+}
+class Customer: Person {
+    // Seconday constructor
+    constructor(name: String) : super() { // เรียก Default Constructor
+
+    }
+}
+class Guest: Person {
+    // ถ้าในคอนสตรักเตอร์แบบ Secondary ไม่มีคำสั่งใดๆ ไม่ต้องเขียน {} ก็ได้
+    constructor() : super()
 }
 fun main(args: Array<String>) {
-    var pro = Programmer()
-    pro.yearBorn = 1995
-    println(pro.getAge())
-    pro.salary = 50_000
+
 }
