@@ -1,27 +1,36 @@
 import java.util.*
 import java.*;
 import kotlin.random.*;
-// กรณีที่ Superclass มีเฉพาะ Primary Constructor
-// ถ้า Superclass มีเฉพาะคอนสตรักเตอร์แบบ Primary หากเราสืบทอดจากคลาสดังกล่าวที่
-// Subclass ต้องกำหนดคอนสตรักเตอร์แบบ Primary หรือ Secondary ที่มีรูปแบบการรับข้อมูล
-// ที่สอดคล้องกันกับคอนสตรักเตอร์ของ Superclass แล้วส่งข้อมูลดังกล่าวให้กับ Superclass
-// พร็อปเพอร์ตี้ที่ส่งไปให้ supperclasss ต้องแตกต่างจาก Superclass
 
-open class Device (var os: String) {
+/* คอนสตรักเตอร์กับการสืบทอด
+ตามหลักการของ Kotlin เมื่อสืบทอดจากคลาสใด ต้องส่งข้อมูลให้แก่คอนสตรักเตอร์ของคลาสนั้นเสมอ
 
-}
-class Tablet(var osName: String) : Device(osName) {
-    // ส่งพร็อปเพอร์ตี้ osName ให้แก่คอนสตรักเตอร์ของ Device
-    // ต้องกำหนดชื่อพร็อปเพอร์ตี้ที่รับข้อมูลให้ต่างจากของ Superclass
-}
-class Smartphone(osName: String, brandName: String) : Device(osName) {
-        // ส่งแค่พารามิเตอร์ osName ที่สอดคล้องกันให้แก่คอนสตรักเตอร์ของ Device
-}
-class Phablet: Device { // กรณีสร้างเป็น secondary constructor
-    constructor(osName: String) : super (osName) {
+* กรณีที่ Superclass ไม่มีคอนสตรักเตอร์
+* ทุกๆ คลาสต้องมี Default Constructor เสมอ ซึ้งลักษณะของมันคือ ไม่มีพารามิเตอร์
+* ใดๆ คอมไฟลเลอร์จะสร้างให้เองโดยอัตโนมัติ
+* 1. ใส่เป็นวงเล็บ () ว่างๆ ต่อท้ายชื่อ Superclass ซึ้งหมายถึงการเรียก Default Constructor
+    ของ Superclass
 
-    }
+  2. สร้างคอนสตรักเตอร์แบบ Secondary แล้วระบุคำสั่ง super() ต่อท้าย
+*
+* */
+
+open class Person {
+    // คลาสนี้มีเฉพาะ Default Constructor
 }
+
+class Programmer : Person() { // เรียก Default Constructor ของ Person
+}
+
+class Customer : Person { // ไม่ต้องมีวงเล็บ ()
+    constructor(name: String) : super() {} // เรียก Default Constructor
+}
+
+class Guest : Person {
+    // ถ้าในคอนสตรักเตอร์แบบ Secondary ไม่มีคำสั่งใดๆ ไม่ต้องเขียน {} ก็ได้
+    constructor() : super()
+}
+
 fun main(args: Array<String>) {
 
 }
