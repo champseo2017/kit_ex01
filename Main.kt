@@ -3,28 +3,38 @@ import java.*;
 import kotlin.random.*;
 
 /*
-   การสร้างคอนสตรักเตอร์เพิ่มเติมให้แก่ Subclass
+    การโอเวอร์ไรด์สมาชิกของ Subclass
+
+    การโอเวอร์ไรด์พร็อปเพอร์ตี้
+    โอเวอร์ไรด์พร็อปเพอร์ตี้ (hide) พร็อปเพอร์ตี้ใน Superclass
+    ให้มองเห็นเป็นตัวใหม่ที่สร้างขึ้นใน Subclass
+
+    - ที่ superclass ต้องระบุโมดิฟายเออร์ open นำหน้าพร็อปเพอร์ตี้ที่สามารถโอเวอร์ได้
+    - ที่ Subclass ต้องระบุโมดิฟายเออร์ override พร้อมกำหนดชื่อพร็อปเพอร์ตี้และชนิดข้อมูลให้ตรง
+    กับของ Superclass (ใช้ Type Inference ได้)
+
+    - คอนสตรักเตอร์แบบพร็อปเพอร์ตี้ หากมีการสืบทอดใช้หลักการเดียวกัน
 
 * */
 
-open class Device(var os: String)
-
-class Tablet(var osName: String): Device(osName) {
-    constructor(osName: String, brandName: String): this(osName) {}
-    constructor(osName: String, osVersion: Double, brandName: String)
-            : this(osName) {
-    }
+open class Java {
+    open val version: Double = 15.0
+    open val compiler = "Java Compiler"
+    val fileExtension = ".java"
+    val owner = "Oracle"
 }
 
-open class Computer
-class NoteBook(var brand: String) : Computer() {
-    private var model = ""
-    constructor(brand: String, model: String,
-                processor: String, memory: Int, display: Double) : this(brand) {
-                this.model = model
-    }
+class Kotlin: Java() {
+    override val version: Double = 2.0
+    override var compiler = "Kotlin Compiler"
+    // override val fileExtension = ".kt" // Error - (1)
+    // val owner = "JetBrains" // Error - (2)
 }
 
+open class Device(open var os: String)
+
+class Smartphone(override var os: String) : Device(os) // OK
+// คอนสตรักเตอร์แบบพร็อปเพอร์ตี้
 
 fun main(args: Array<String>) {
 
