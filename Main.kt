@@ -2,31 +2,45 @@ import java.util.*
 import java.*;
 import kotlin.random.*;
 
-/* Superclass มีเฉพาะ Secondary Constructor
+/*
+    Superclass มีทั้ง Primary และ Secondary Constructor
+    ถ้าคลาสมีคอนสตรักเตอร์มากกว่า 1 อัน เมื่อสร้างอินสแตนซ์ของมันต้องกำหนดพารามิเตอร์ให้ตรงกับ
+    รูปแบบของคอนสตรักเตอร์อย่างใดอย่างหนึ่งของคลาส
 
-สืบทอดคลาสที่มีเฉพาะคอนสตรักเตอร์แบบ Secondary ใช้วิธีเดียวกับกรณีที่คลาสนั้นมี
-เพียงคอนสตรักเตอร์แบบ Primary
+    การสืบทอด โดยที่ Subclass ต้องมีคอนสตรักเตอร์แบบ Primary หรือ Secondary อย่างน้อย 1 อัน
 
 * */
 
-open class Device {
-    constructor(os: String) {
+open class Device(var os: String) {
+    constructor(os: String, brandName: String): this(os) {
 
     }
 }
 
 class Tablet(var osName: String) : Device(osName) {
+    // ส่งข้อมูลคอนสตรักเตอร์แบบ Primary ของคลาส Device
 }
 
-class Smartphone(osName: String, brandName: String)
-    : Device(osName) {
+class Smartphone(var osName: String, var brandName: String)
+    : Device(osName, brandName) {
+        // ส่งข้อมูลให้แก่คอนสตรักเตอร์แบบ Secondary ของคลาส Device
+
 }
 
 class Phablet: Device {
-    constructor(osName: String): super(osName) {
-
+    constructor(osName: String, brandName: String): super(osName) {
+        // ส่งข้อมูลให้แก่คอนสตรักเตอร์แบบ Primary ของคลาส Device
     }
 }
+
+class Watch: Device {
+    constructor(osName: String, brandName: String): super(osName, brandName) {
+
+    }
+    // ส่งข้อมูลให้แก่คอนสตรักเตอร์แบบ Secondary ของคลาส Device
+}
+
+// สามารถเลือกใช้ระหว่าง Primary และ Secondary
 
 fun main(args: Array<String>) {
 
