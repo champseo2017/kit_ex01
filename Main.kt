@@ -3,36 +3,42 @@ import java.*;
 import kotlin.random.*;
 
 /*
-   การอ้างถึงสมาชิกของ Superclass
+    โมดิฟายเออร์ private และ protected
 
-   ถ้าใน Subclass เราโอเวอร์ไรด์สมาชิกตัวใดไปแล้ว แต่ต้องการกลับไปใช้รูปแบบเดิมใน Superclass
-   ก็ให้อ้างถึงสมาชิกตัวนั้นด้วยคีย์เวริร์ด super เช่น ถ้าจะอ้างถึงพร็อปเพอร์ตี้ x ก็ใช้ super.x หรือ อ้างถึงเมธอด
-   getValue() ก็ใช้ super.getValue()
+    สมาชิกที่ระบุโมดิฟายเออร์ private จะไม่ถูกสืบทอดมายัง Subclass ดังนั้น จึงไม่สามารถเรียกใช้
+    หรือโอเวอร์ไรด์ได้
+
+    - protected มีการสืบทอดมายัง Subclass ตามปกติ แต่สามารถเข้าถึงได้เฉพาะจาก Subclass ของ
+    มันเอง หรือ กล่าวได้ว่าคลาสที่ไม่อยู่ในลำดับชั้นการสืบทอด จะเข้าถึงสมาชิกที่มีโมดิฟายเออร์แบบ protected
+    ไม่ได้
 
 
 * */
 
-open class Circle(open var radius: Int) {
-    open val PI = 3.14159
-    open fun area() = PI * radius * radius
-    open fun perimeter() = 2 * PI * radius
+open class Demo {
+    protected var p1: Int = 0
+    protected open var p2: Double = 0.0
+
+    private fun m1() {}
+    protected open fun m2() {}
 }
 
-class Cylinder(override var radius: Int, var height: Int)
-    : Circle(radius) {
-    override val PI = 3.14
-    override fun area() = (super.PI * radius * radius) * 2 +
-            (2 * PI * radius * height)
-    fun surfaceArea() = super.area() * 2 + perimeter() * height
-    // หรือใช้ super.perimiter() ก็ได้
+class Dummy: Demo() {
+    override var p2 = p1 + 0.5 // OK
+    fun m1() {} // OK
+    override fun m2() {} // OK
+}
 
-    fun volume() = super.area() * height
+class Test {
+    fun m() {
+        var d = Dummy()
+        d.m1()
+        // d.m2() // Error
+        // print(d.p2) // Error
+    }
 
-    // 1. หากต้องการใช้ค่าเดิมใน Superclass ก็ใช้ super.PI ถ้ากำหนดเป็น PI จะหมายถึงพร็อปเพอร์ตี้
-    // ที่กำหนดขึ้นใหม่ใน Subclass
-    // 2. เนื่องจากใน Subclass เราโอเวอร์ไรด์เมธอด area() ไปแล้ว ดังนั้น หากต้องการกลับไปใช้วิธีการ
-    // คำนวณแบบเดิมใน Superclass ก็กำหนดเป็น super.area() ถ้าไม่ได้โอเวอร์โหลด perimeter() หรือ
-    // super.perimeter()
+    // คลาส Test ไม่อยู่ในลำดับการสืบทอด จึงเรียกใช้ได้เฉพาะ m1() ส่วน m2() และ p2 มีโมดิฟายเออร์เป็น
+    // protected
 }
 
 fun main(args: Array<String>) {
