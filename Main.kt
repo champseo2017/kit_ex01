@@ -3,58 +3,33 @@ import java.*;
 import kotlin.random.*;
 
 /*
-    Object Expression
+    การแปลชนิดข้อมูลด้วย as และ as?
+    การใช้ as (Unsafe Cast Operator)
+    เราควรใช้ as เมื่อแน่ใจจริงๆ ว่าสามารถแปลงชนิดข้อมูนนั้นๆได้
+    ไม่เช่นนั้น จะเกิด Error
 
-    ถ้าต้องการใช้งานอินเทอร์เฟซไปใช้งาน ต้องสร้างคลาสขึ้นมาสืบทอด ซึ้งจะเกิดความยุ่งยาก
-    เมื่อใช้ อินเทอร์เฟซจำนวนมาก
+    val a: Int = 10
+    val b: Double = a as Double // Runtime Error
+    val c = "123"
+    val d = c as Int // Runtime Error
 
-    Anonymous (Inner) Class
-
-    object: interface_name {
-        // โอเวอร์ไรด์สมาชิกของอินเทอร์เฟซที่เป็น Abstract ตามปกติ
-    }
+    var x: Any = 12.34
+    x++ // Error ชนิด Any คำนวณไม่ได้
+    var y = x as Double // OK
+    y++ // OK
+    val z = x as Int // Runtime Error
 
 * */
 
-interface Math {
-    fun add(a: Int, b: Int): Int
-    fun subtract(a: Int, b: Int): Int
-}
-
-// function หรือ class รับพารามิเตอร์เป็นอินเทอร์เฟซ
-fun calculate(x: Int, y: Int, math: Math) { // Math เป็นอินเทอร์เฟซ
-    println("$x + $y = ${math.add(x, y)}")
-    println("$x - $y = ${math.subtract(x, y)}")
-}
-
-interface MouseClick {
-    fun onClick()
-}
-
-class Button {
-    fun onMouseClick(m: MouseClick) {
-        m.onClick()
-    }
-}
-
+    open class Tea
+    class IceTea: Tea()
 
 fun main(args: Array<String>) {
 
-//    var mt = object: Math {
-//        override fun add(a: Int, b: Int): Int = a + b
-//        override fun subtract(a: Int, b: Int) = a - b
-//    }
+    var it = IceTea()
+    var t: Tea = it as Tea // OK (Subclass => Superclass)
+    var t2 = Tea()
+    var it2: IceTea = t2 as IceTea // Error (Super => Sub)
 
-    calculate(20, 5, object: Math { // object เป็นอาร์กิวเมนต์โดยตรง
-        override fun add(a: Int, b: Int): Int = a + b
-        override fun subtract(a: Int, b: Int) = a - b
-    })
-
-    val bt = Button()
-    bt.onMouseClick(object: MouseClick {
-        override fun onClick() {
-            println("Mouse Click")
-        }
-    })
 
 }
