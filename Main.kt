@@ -4,32 +4,31 @@ import kotlin.random.*;
 
 /*
     การแปลชนิดข้อมูลด้วย as และ as?
-    การใช้ as (Unsafe Cast Operator)
-    เราควรใช้ as เมื่อแน่ใจจริงๆ ว่าสามารถแปลงชนิดข้อมูนนั้นๆได้
-    ไม่เช่นนั้น จะเกิด Error
+    การใช้ as? (Safe Cast Operator)
 
-    val a: Int = 10
-    val b: Double = a as Double // Runtime Error
-    val c = "123"
-    val d = c as Int // Runtime Error
-
-    var x: Any = 12.34
-    x++ // Error ชนิด Any คำนวณไม่ได้
-    var y = x as Double // OK
-    y++ // OK
-    val z = x as Int // Runtime Error
+    as? คือ หากแปลง Type ไม่ได้ จะคืนค่า null
+    ต้องนำวิธีการแบบ Nullable มาใช้ร่วมด้วย
 
 * */
+
+val a: Int = 10
+val b: Double? = a as? Double // null
+// Nullable      as? Safe Cast Operator
+val c = "123"
+val d: Int? = (c as? Int) ?: 0 // 0
+
+fun test(x: Any) {
+    var y: Double? = x as? Double
+    val z: Int? = x as? Int
+}
 
     open class Tea
     class IceTea: Tea()
 
 fun main(args: Array<String>) {
 
-    var it = IceTea()
-    var t: Tea = it as Tea // OK (Subclass => Superclass)
-    var t2 = Tea()
-    var it2: IceTea = t2 as IceTea // Error (Super => Sub)
+    var t = Tea()
+    var it: IceTea? = t as? IceTea // null
 
 
 }
