@@ -3,32 +3,39 @@ import java.*;
 import kotlin.random.*;
 
 /*
-    การแปลชนิดข้อมูลด้วย as และ as?
-    การใช้ as? (Safe Cast Operator)
+    Smart Cast
+    ตรวจสอบชนิดข้อมูลด้วย is แปลงข้อมูลด้วย as
 
-    as? คือ หากแปลง Type ไม่ได้ จะคืนค่า null
-    ต้องนำวิธีการแบบ Nullable มาใช้ร่วมด้วย
+    fun increment(x: Any) : Int? {
+        var n: Int
+        return if (x is Int) {
+            n = x as Int
+            ++n
+        } else null
+    }
+
+    หากตรวจสอบด้วย is แล้วให้ผลลัพธ์เป็น true (เป็น type ตามที่ระบุ) ตัวแปรจะถูกแปลงเป็นชนิด
+    ที่เราตรวจสอบโดยอัตโนมัติ และ สามารถนำปใช้งานได้เลย โดยไม่จำเป็นต้องแปลงด้วย as
 
 * */
 
-val a: Int = 10
-val b: Double? = a as? Double // null
-// Nullable      as? Safe Cast Operator
-val c = "123"
-val d: Int? = (c as? Int) ?: 0 // 0
+   fun increment(x: Any) : Int ? {
+       var n: Int
+       return if (x is Int) {
+          n = x // x ถูกแปลงเป็นชนิด Int โดยอัตโนมัติ เมื่อเราตรวจสอบด้วย if
+          ++n
+       } else null
 
-fun test(x: Any) {
-    var y: Double? = x as? Double
-    val z: Int? = x as? Int
-}
+       /*  หรือใช้ when
+       *   return when (x) {
+       *    is Int -> { n = x; ++n }
+       *    else -> null
+       *   }
+       * */
+   }
 
-    open class Tea
-    class IceTea: Tea()
+
 
 fun main(args: Array<String>) {
-
-    var t = Tea()
-    var it: IceTea? = t as? IceTea // null
-
 
 }
