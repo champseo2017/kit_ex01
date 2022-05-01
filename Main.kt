@@ -3,33 +3,37 @@ import java.*;
 import kotlin.random.*;
 
 /*
-   Generic Type ในแบบ in และ out
-   หากต้องการให้ใช้ Generic Type เฉพาะการนำข้อมูลเข้าหรือออกเพียงอย่างใด อย่างหนึ่ง
-    - ระบุคีย์เวิร์ด in เมื่อต้องการให้ใช้เฉพาะกับการนำเข้า
-    - ระบุคีย์เวิร์ด out เมื่อต้องการให้ใช้เฉพาะกับการส่งออก (ยกเว้นคอนสตรักเตอร์)
+   อาร์เรย์แบบ Generic
+   หากเป็นชนิดข้อมูลพื้นฐาน จะมีคลาสและฟังก์ชันสำหรับอาร์เรย์ชนิดนั้นโดยตรง
+   เช่น
+   IntArray/intArrayOf()
+   DoubleArray/doubleArrayOf() เป็นต้น
+   แต่ในกรณีอื่นๆ ที่ไม่มีคลาส XxxArray และ ฟังก์ชัน xxxArrayOf() สำหรับชนิดนั้น
+   เราสามารถใช้ Array<T> ทดแทนได้ ซึ้งก็คือรูปแบบของ Generic นั่นเอง
+   โดยข้อมูลที่ต้องกำหนดให้แก่คอนสตรักเตอร์ของคลาสดังกล่าวนี้ ก็คือจำนวนสมาชิก และ
+   ต้องระบุค่าเริ่มแรกของสมาชิกแต่ละตัวในแบบแลมบ์ดา
 
-    class Data<in T>(value: T) {
-       private var v = value as Any
-       // ส่งข้อมูลออกเป็นชนิด Generic Type ไม่ได้ ทำได้เฉพาะการนำเข้ามา
-       fun type(): T = v::class.simpleName as T // Error
-       fun value(): T = v as T // Error
-       fun setValue(value: T) {
-          this.v = value as Any
-       }
-    }
+    val colors: Array<String> = Array<String>(3, {""})
+    val colors: Array<String> = Array(3){""}
+    val colors = Array<String>(3){""}
+    val colors = Array(3){""}
 
-    class Data<out T>(value: T) {
-        private var v = value as Any
-        // ส่งข้อมูลออกเป็นชนิด Generic Type ได้ แต่นำเข้ามาไม่ได้
-        fun type(): T = v::class.simpleName as T // OK
-        fun value(): T = v as T // OK
-        fun setValue(value: T) { // Error
-          this.v = value as Any
-        }
-    }
+    จากโค๊ด เรากำหนดชนิดของอาร์เรย์เป็น String และ ค่าเริ่มแรกของสมาชิกแต่ละตัวเป็นสตริงว่าง
+    (Empty) ตามหลักการของพารามิเตอร์แบบ Function Type เราสามารถแยกวงเล็บ {} ของแลมบ์ดา
+    มาไว้นอกวงเล็บ () ได้
+
+    val ints = Array(3) { 5 } // 5, 5, 5
+    val bools = Array(4) { false } // false, false, false, false
+    val evens = Array(5) { it * 2 }
+    println(evens.joinToString(", "))
+
+
 
 * */
 
 fun main(args: Array<String>) {
-
+    val ints = Array(3) { 5 } // 5, 5, 5
+    val bools = Array(4) { false } // false, false, false, false
+    val evens = Array(5) { it * 2 }
+    println("")
 }
