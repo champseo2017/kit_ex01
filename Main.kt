@@ -3,33 +3,30 @@ import java.*;
 import kotlin.random.*;
 
 /*
-   ขอบเขตของ Generic Type
-   Type Constraint โดยอณุญาติให้เฉพาะคลาสที่สืบทอดมากจาก Type ที่ระบุเท่านั้น ที่สามารถนำมากำหนดเป็น
-   Generic Type ได้ก็ให้ระบุ Generic Type เป็น <T: Supertype> เหมือนกับ Superclass
-   เช่น เฉพาะคลาสที่สืบทอดมาจาก Number (เช่น Int, Double, Float เป็นต้น) เท่านั้นที่สามารถนำมาใช้ได้
+   Generic Type ในแบบ in และ out
+   หากต้องการให้ใช้ Generic Type เฉพาะการนำข้อมูลเข้าหรือออกเพียงอย่างใด อย่างหนึ่ง
+    - ระบุคีย์เวิร์ด in เมื่อต้องการให้ใช้เฉพาะกับการนำเข้า
+    - ระบุคีย์เวิร์ด out เมื่อต้องการให้ใช้เฉพาะกับการส่งออก (ยกเว้นคอนสตรักเตอร์)
 
-   class Data<T: Number>(var value: T) {
-   }
+    class Data<in T>(value: T) {
+       private var v = value as Any
+       // ส่งข้อมูลออกเป็นชนิด Generic Type ไม่ได้ ทำได้เฉพาะการนำเข้ามา
+       fun type(): T = v::class.simpleName as T // Error
+       fun value(): T = v as T // Error
+       fun setValue(value: T) {
+          this.v = value as Any
+       }
+    }
 
-   // พารามิเตอร์แบบ Variable Argument สำหรับรับ Argument ที่มีจำนวนไม่แน่นอน
-      - เข้าถึงแต่ละค่าด้วย array
-      - ใน fun สามารถมีพารามิเตอร์แบบ Variable ได้เพียงอันเดียวเท่านั้น
-      - summation(1, 2, 3, 4, 5)
-
-   fun <T: Number>sum(vararg data: T): T {
-    var total = 0.0
-    for (x in data) {
-        if (x is Int) {
-          total += x.toDouble()
-        } else if (x is Double) {
-          total += x
-        } else if (x is Float) {
-          total += x
+    class Data<out T>(value: T) {
+        private var v = value as Any
+        // ส่งข้อมูลออกเป็นชนิด Generic Type ได้ แต่นำเข้ามาไม่ได้
+        fun type(): T = v::class.simpleName as T // OK
+        fun value(): T = v as T // OK
+        fun setValue(value: T) { // Error
+          this.v = value as Any
         }
     }
-    return total as T
-   }
-
 
 * */
 
