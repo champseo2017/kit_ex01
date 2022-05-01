@@ -6,5 +6,10 @@ Generic Function อีกอันหนึ่งคือ arrayOfNulls<T>() �
 * */
 
 fun main(args: Array<String>) {
-    println("Hello World!")
+    val str: Array<String?> = arrayOfNulls<String>(3) // 3 คือจำนวนสมาชิก
+    // null, null, null
+    val int = arrayOfNulls<Int>(4)
+    int[0] = 0
+    int[3] = 300
+    println(int.joinToString(", "))
 }
