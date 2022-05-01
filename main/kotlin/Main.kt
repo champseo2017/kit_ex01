@@ -1,8 +1,19 @@
 /*
     การใช้แลมบ์ดากับคอลเล็กชัน
+    - count(predicate: (T) -> Boolean) สำหรับ List และ Set
+    - count(predicate: Map.Entry(K, V) -> Booolean) สำหรับ Map
+    เป็นการนับเฉพาะสมาชิกซึ้งมีลักษณะตามเงื่อนไขที่ระบุในแบบแลมบ์ดา โดยเงื่อนไขดังกล่าว ต้อง
+    ให้ผลลัพธ์ออกมาเป็น true หรือ false (ข้อมูลจะถูกนับเมื่อเงื่อนไขเป็น true)
 
-    - forEach(action: (T) -> Unit) สำหรับ List และ Set
-    - forEach(action: Map.Entry(k, v) -> Unit) สำหรับ Map
+    filter(predicate: (T) -> Boolean) สำหรับ List
+    filter(predicate: Map.Entry(K, V) -> Boolean) สำหรับ Map
+    return ผลลัพธ์
+
+    filterNot(...) เป็นการกรองเอาเฉพาะสมาชิกที่ไม่ตรงตามเงื่อนไขที่ระบุ
+    ทำงานตรงข้ามกับ เมธอด filter(0
+
+
+
 * */
 
 fun main(args: Array<String>) {
@@ -11,17 +22,18 @@ fun main(args: Array<String>) {
     val map = mutableMapOf<Int, String>(66 to "Thailand", 81 to "Japan"
     , 61 to "Australia")
 
-    list.forEach {
-        if (it % 2 == 0) println(it)
-    }
+//    val c1 = list.count { it % 2 == 0}
+//    val c2 = set.count { it > 3 }
+//    val c3 = map.count { it.key < 80 }
+    // it.value ค่าของ value
 
-    set.forEach { println(it * 10) }
+    val fList = list.filter { it % 2 == 0 }
 
-    map.forEach {
-        if (it.key < 80) {
-            println(it.key.toString() + " : " + it.value)
-        }
-    }
+    val fnList = list.filterNot { (it * it) < 30 }
+
+    val fMap = map.filter { it.key < 80 }
+    // อ้างค่าของ Map ด้วย it.value
+
 
 
 }
