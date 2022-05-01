@@ -2,7 +2,7 @@
 
 /*
 Generic Function อีกอันหนึ่งคือ arrayOfNulls<T>() ใช้ในการสร้่างอาร์เรย์
-ที่สมาชิกแต่ละตัว มีค่าเริ่มแรกเป็นfwefwe
+ที่สมาชิกแต่ละตัว มีค่าเริ่มแรกเป็น null
 * */
 
 fun main(args: Array<String>) {
