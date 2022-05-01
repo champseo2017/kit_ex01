@@ -1,50 +1,43 @@
 /*
-    คอลเล็กชันประเภท List
-    สำหรับจัดเก็บรายการข้อมูลที่สามารถเข้าถึงสมาชิกด้วยเลขลำดับคล้ายกับอาร์เรย์
-    แต่มีความยืดหยุ่นต่อการเปลี่ยนแปลงจำนวนสมาชิกโดยการเพิ่มหรือลบรายการได้
-    ในขณะที่อาร์เรย์นั้น จำนวนสมาชิกจะคงที่ตลอด
+    คอลเล็กชันประเภท Set
+    Collection Type สำหรับจัดเก็บรายการข้อมูลที่ไม่ซ้ำกัน
+    ทั้งนี้หากกำหนดอิลิเมนต์ซ้ำกับที่มีอยู่แล้ว อิลิเมนต์นั้นจะไม่ถูกเพิ่มเข้าไป แต่ไม่เกิดข้อผิดพลาด
+    โดยเราแบ่งเซตออกเป็น 2 แบบคือ Mutable Set และ Immutable Set
 
-
-    การใช้ Lterator ร่วมกับ List
-    หากเราต้องการเข้าถึงสมาชิกของลิสต์แบบต่อเนื่องกันซึ้งนอกจากการใช้ลูปแบบ for-in
-    ยังสามารถใช้ Lterator ได้อีกหนึ่งวิธี โดยทั้ง Mutable และ Lmmutable list
-    ต่างก็มีเมธอดในการสร้าง lterator
-
-    iterator() คืนค่าเป็นอินสแตนซ์ของ Iterator เพื่อนำไปใช้ในการเข้าถึงรายการในลิสต์แบบ
-    เลื่อนไปข้างหน้าได้อย่างเดียว
-
-    listltorator() คืนค่ามาเป็นอินสแตนซ์ของ Iterator เพื่อนำไปใช้ในการเข้าถึงรายการในลิสต์
-    แบบเลื่อนได้ทั้งไปข้างหน้าและย้อนกลับ
-
-    หลักการใช้ Iterator ก็คือ ให้เลื่อนตำแหน่งการอ่านไปเรื่อยๆ ทีละตำแหน่ง จนกว่าจะครบตามจำนวน
-    สมาชิก (เลื่อนต่อไปไม่ได้)
-
-    - ลักษณะการใช้ Iterator ที่ได้จากเมธอด iterator()
-
-
+    Set จะไม่คำนึงถึงลำดับของสมาชิก ดังนั้น เมธอดต่างๆ ของ Set จึงไม่มีอันไหนที่กำหนด
+    เลขลำดับได้แต่ต้องอ้างถึงชื่อของสมาชิกโดยตรง แต่เราสามารถใช้ลูป for-in และ lterator
+    ร่วมกับ Set ได้เช่นเดียวกับ List
 
 * */
 
 fun main(args: Array<String>) {
 
-    val list = mutableListOf<String>("Java", "Kotlin", "Android")
-    val iter = list.iterator()
-//    while (iter.hasNext()) { // ถ้าเลื่อนต่อไปได้
-//        println(iter.next()) // อ่านค่าสมาชิกในลำดับถัดไป
-//    }
+    // Mutable Set
+    val rgb: Set<String> = mutableSetOf<String>("red", "green")
+    val num: Set<Int?> = mutableSetOf(7, 11, null, 2, 1009)
+    val char = mutableSetOf<Char>('a', 'b', 'c')
+    val lang = mutableSetOf("Java", "Kotlin", "Swift", "Kotlin")
+    // lang => ("Java", "Kotlin", "Swift")
 
-    // - ลักษณะการใช้ Iterator ที่ได้จากเมธอด ListIterator()
-    val lists = mutableListOf<String>("Java", "Kotlin", "Android")
-    val iters = list.listIterator()
+    // Immutable Set
+    val evenNum: Set<Int> = setOf<Int>(2, 4, 6, 8)
+    val doubleNum: Set<Double> = setOf(1.2, 3.4, 5.6)
+    val fruit = setOf<String>("apple", "banana", "coconut")
+    val flower = setOf("rose", "orchid", "jasmine")
 
-    while (iters.hasNext()) {
-        println(iters.next())
+    val color = mutableSetOf("red", "green", "blue")
+    color.add("yellow")
+    if (color.contains("red")) {
+        color.remove("red")
     }
 
-    println()
+//    for (c in color) {
+//        println(c)
+//    }
 
-    while (iters.hasPrevious()) { // หากเลื่อนย้อนกลับได้
-        println(iters.previous()) // อ่านค่าสมาชิกในลำดับก่อนนี้
+    val iter = color.iterator()
+    while (iter.hasNext()) {
+        println(iter.next())
     }
 
 }
