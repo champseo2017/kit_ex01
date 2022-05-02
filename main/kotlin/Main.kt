@@ -1,15 +1,32 @@
 /*
-    พื้นฐานของการสร้าง UI
-    ในแอนดรอยด์ จะเรียกกลุ่มคลาสที่ใช้สำหรับติดต่อกับผู้ใช้ หรือ User Interface (UI)
-    ว่า View (วิว) แบ่งได้อีกเป็น ViewGroup (Layout)
+    คลาส MainActivity
+    class MainActivity: AppCompatActvity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+        }
+    }
 
-    Activity และ Layout
-    ในระบบแอนดรยด์ จะเรียกการแสดงผลแต่ละหน้าของแอปว่า Activity เมื่อเราเปิดแอป
-    แอกทิวิตี้แรกที่ถูกนำมาแสดงเรียกว่า MainActivity เหมือนกับหน้า Homepage หรือ Index ของ
-    เว็บไซต์
-    ถัดจาก Activity จะเป็น Layout ซึ้งใช้ในการกำหนดโครงร่างเพื่อจัดวางวิวชนิดต่างๆ ลงไป
+    - MainActivity เป็นชื่อคลาสของแอกทิวิตี้หลัก ซึ้งจะถุกเรียกขึ้นมาทำงานเป็นอันดับแรก
+    เมื่อเราเปิดแอป และ คลาสนี้สืบทอดมาจาก AppCompatActvity
 
-    Activity -> Layout -> view
+    - override fun onCreate(savedInstanceState: Bundle?)
+       - เป็นการโอเวอร์ไรด์เมธอด onCreate() ของ Superclass
+       เพื่อกำหนดวิธีดำเนินการเริ่มแรกเมื่อแอกทิวิตี้ถูกสร้างขึ้น ส่วนพารามิเตอร์
+       (savedInstanceState: Bundle?) ใช้ตรวจสอบข้อมูลสถานะบางอย่างสำหรับ
+       บางกรณี
+
+    - super.onCreate(savedInstanceState) เรียกเมธอด onCreate()
+    ของ Superclass พร้อมส่งค่าสถานะจากพารามิเตอร์ savedInstanceState ไปให้มัน
+
+    - setContentView(R.layout.activity_main)
+     - setContentView() เป็นการนำโครงร่างหรือเลย์เอาต์ที่เขียนในแบบ XML มากำหนด
+     เป็นเนื้อหาของแอกทิวิตี้
+
+     - R.layout.activity_main
+       - คลาส R คือคลาสที่ใช้อ้างถึง Resource ต่างๆ ภายในแอป ซึ้งไฟล์ activity_main.xml
+       อยู่ในกลุ่ม res -> layout จึงอ้างไฟล์ดังกล่าวผ่านคลาส R ในแบบ
+       R.layout.activity_main
 
 
 * */
