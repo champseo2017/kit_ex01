@@ -1,45 +1,64 @@
 /*
 
-  การเข้าถึง Resource จากคลาส R
+  การใช้ออบเจ็กต์ resources
 
-  การเข้าถึงข้อมูลในรีซอร์ส หากเป็นการใช้งานในส่วนของโค้ด Kotlin จะต้องทำผ่านคลาส R
-  ถ้าสร้างโปรเจ็กต์ใหม่ Android Studio จะสร้างคลาสนี้ขึ้นมาให้โดยอัตโนมัติ
+  การอ้างถึงด้วยคลาส R เฉพาะข้อมูล R.string เท่านั้นจะคืนค่ากลับมาเป็นชนิด string โดยตรง
+  ส่วน R.integer, R.bool, R.color จะคืนค่ากลับมาเป็นชนิด Int แม้ว่าค่าที่เราเก็บเอาไว้จะไม่
+  ใช้ตัวเลขก็ตาม ออบเจ็กต์ resources ดึงค่าที่แท้จริงออกมาใช้
 
-  รูปแบบการอ้างถึงข้อมูลในรีซอร์สคือ
-  R.tag_name.attribute_name
+  string เมธอด getString(R.type.name) รีซอร์สชนิด string ที่กำหนดด้วยแท็ก <string>
 
-  - tag_name คือ ชื่อของแท็กที่เราใช้กำหนดข้อมูลของรีซอร์ส เช่น string, color, dimen
-  - attribute_name ชื่อข้อมูลที่เรากำหนดด้วยแอตทริบิวต์ name
+  Int เมธอด
+  getInteger(R.type.name) รีซอร์สชนิด integer ที่กำหนดด้วยแท็ก <integer>
 
-  การอ้างถึงดังกล่าวจะคืนค่ากลับมาเป็นข้อมูลชนิด Int เกือบทั้งหมด ยกเว้น <string>
-  เช่น เก็บข้อมูลในรีซอร์ส ดังนี้
+  Float เมธอด
+  getDimension(R.type.name) รีซอร์สชนิด dimen ที่กำหนดด้วยแท็ก <dimen>
+
+  Boolean เมธอด
+  getBoolean(R.type.name) รีซอร์สชนิด bool ที่กำหนดด้วยแท็ก <bool>
+
+  Int เมธอด
+  getColor(R.type.name, theme) รีซอร์สชนิด color ที่กำหนดด้วยแท็ก <color>
+
+  Array<String> เมธอด
+  getStringArray(R.type.name) รีซอร์สชนิด array ที่กำหนดด้วยแท็ก <array>
+
+  Drawable เมธอด
+  getDrawable(R.type.name, theme) รีซอร์สชนิด drawable
+
+
+  เมธอด getColor() และ getDrawable() สามารถกำหนดค่า theme เป็น null ได้
+
+  แนวทางการใช้ ออบเจ็กต์ resources เช่น เก็บข้อมูลไว้ในไฟล์รีซอร์ส
 
   <resources>
     <string name="title">Android</string>
-    <string name="author">Andy</string>
-    <integer name="price">380</integer>
+    <integer name="price">325</integer>
+    <bool name="is_valid">true</bool>
+    <dimen name="height">100dp</dimen>
+    <color name="text_color">#00ff00</color>
+    <array>
+       <item>One</item>
+       <item>Two</item>
+       <item>Three</item>
+    </array>
   </resources>
 
-  นำข้อมูล resources มาใช้ใน kotlin
+  สามารถเข้าถึงค่าในรีซอร์สด้วยโค้ด kotlin ดังนี้
 
-  val title: Int = R.string.title
-  val author = R.string.author
-  val price = R.integer.price
+  val title: String = resources.getString(R.string.title)
+  val isValid: Boolean = resources.getBoolean(R.bool.is_valid)
+  val price: Int = resources.getInteger(R.integer.price)
+  val height = resource.getDimension(R.dimen.height)
+  val color = resource.getColor(R.color.text_color, null)
+  val numText = resources.getStringArray(R.array.num_text)
 
-  การอ้างถึงรีซอร์สด้วยคลาส R นั้น เราไม่ได้นำชื่อไฟล์มาเกี่ยวข้องเลย เพราะคลาส R
-  ไม่ขึ้นอยู่กับไฟล์ หากไฟล์นั้นอยู่ในโฟล์เดอร์ res/values ก็สามารถอ้างถึงด้วยรูปแบบ
-  R.tag_name.attribute_name เหมือนกันหมด
+  ส่วนกรณีของ drawable ใช้แนวทางเดียวกับรีซอร์สชนิดอื่นๆ เช่น
+  ไฟล์ภาพชื่อ logo
 
-  R.id ใช้ในการอ้างถึงค่า id หรือ ชื่อวิวนั่นเอง เนื่องจากเรากำหนดค่า id ในแบบ @+id
-  ซึ้งเครื่องหมาย + จะทำให้ค่า id ถูกเพิ่มลงในรีซอร์สให้ด้วย ดังนั้น จึงสามารถอ้างถึงค่า
-  id ผ่านคลาส R ได้
-
-  R.layout ใช้ในการอ้างถึงไฟล์เลย์เอาต์ (ไม่ต้องระบุส่วนขยายของไฟล์) เช่น
-
-  setContentView(R.layout.activity_main)
-
-
-
+  val img = resources.getDrawable(R.drawable.logo, null)
+  หรือต้องการอ้างถึงในไฟล์ XML ก็ใช้รูปแบบ @drawable/ชื่อภาพ เช่น หากไฟล์ภาพชื่อ brid
+  ก็กำหนดเป็น @drawable/brid
 
 * */
 
