@@ -1,16 +1,22 @@
 /*
 
-    การตั้งค่าให้เป็นไอคอนของแอป
-    - res/mipmap
-    - จะเห็นโฟล์เดอร์ ของไอคอนที่สร้างใหม่เพิ่มขึ้นมาเป็นชื่อ icon
-    - จากนั้นไปที่ AndroidManifest.xml เพื่อกำหนดเป็นไอคอนของแอปแทนอันเดิม
-    - แก้ชื่อไฟล์ที่แอตทริบิวต์ android:icon และ android:roundIcon เป็นชื่อไอคอน
-    - android:icon="@mipmap/ic_launcher2"
-    - android:roundIcon="@mipmap/ic_launcher2_round"
+    การอ้างถึงวิวใน Kotlin
+
+    - ใช้คลาสของแอกทิวิตี้ มีเมธอดที่ใช้อ้างถึงวิวที่นำมาวางบนเลย์เอาต์ คือ
+    findViewById<T>(R.id.xxx)
+
+    - findViewById() เป็นแบบ Generic ต้องระบุชนิดของวิวเป้าหมายที่ต้องการ
+    อ้างถึงด้วย <T> เช่น findViewById<Button>(...)
+
+    - R.id.xxx คือ ชื่อของวิวอันนั้นที่กำหนดให้แก่แอตทริบิวต์ id หรือต่อท้าย @+id
+    ในไฟล์เลย์เอาต์ เช่น id="@+id/button_ok" xxx คือ button_ok
+
+    - การเรียกเมธอด findViewById() ต้องทำหลังจากเรียกเมธอด setContentView()
+    แล้วเท่านั้น ให้โครงร่างของแอกทิวิตี้ในไฟล์ activity_main.xml ถูกสร้างเป็น ออบเจ็กต์ก่อน
 
 
 * */
 
 fun main(args: Array<String>) {
-
+    println(18.999999999999999999)
 }
