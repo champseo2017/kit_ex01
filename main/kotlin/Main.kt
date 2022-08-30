@@ -10,14 +10,13 @@
     ในขั้นตอนนี้ไม่ได้ ต้องสร้างตัวแปรแบบ Reference ขึ้นมาก่อนเราต้องกำหนดค่าเริ่มต้น
     ให้แก่พร็อปเพอร์ตี้เสมอ
 
-    - ใช้หลักการของ Nullable โดยกำหนดค่าเป็น null ไว้ล่วงหน้า และ หลังจากเรียก
-    เมธอด setContentView() แล้ว เราค่อยอ้างถึงวิวด้วย findViewById()
-    เราจะเรียกใช้สมาชิกของวิวหรือคลาส ต้องใช้วิธีการแบบ Nullable ด้วย
-
+    - ใช้คีย์เวิร์ด lateinit ซึ้งมีข้อดีคือ ไม่ต้องกำหนดค่าล่วงหน้า และ จะเรียกใช้สมาชิก
+    ของวิวหรือของคลาส ก็ไม่จำเป็นต้องใช้วิธีการแบบ Nullable อีกด้วย แต่จะใช้กับชนิดข้อมูล
+    พื้นฐาน หรือ Primitive Type ไม่ได้ (เช่น Int, Double, Boolean)
 
     class MainActivity: AppCompatActivity() {
-        private var btnOK: Button? = null
-        private var txtData: TextView? = null
+        private lateinit var btnOK: Button
+        private lateinit var txtData: TextView
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -28,11 +27,22 @@
         }
 
         private fun test() {
-            btnOK?.text = "Hello" // เรียกสมาชิกแบบ Nullable
-            btnOK?.performClick() // เรียกสมาชิกแบบ Nullable
-            val str = txtData!!.text // เรียกสมาชิกแบบ Nullable
+           btnOK.text = "Hello" // เรียกสมาชิกแบบปกติ ไม่ต้องใช้วิธี Nullable
+           btnOK.performclick() // เรียกสมาชิกแบบปกติ ไม่ต้องใช้วิธี Nullable
+           val str = txtData.text // เรียกสมาชิกแบบปกติ ไม่ต้องใช้วิธี Nullable
         }
+    }
 
+    หากเป็นตัวแปรของชนิดข้อมูลพื้นฐาน เช่น Int, Double, Boolean ยกเว้นชนิด String
+    ไม่สามารถใช้ lateinit ได้ ต้องกำหนดค่าดีฟอลต์ให้กับมัน หรือใช้วิธีการแบบ Nullable
+
+    class MainActivity: AppCompatActivity() {
+        private var intNumber: Int = 0
+        private var floatNumber: Float? = null
+        private var bool: Boolean = false
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+        }
     }
 
 
