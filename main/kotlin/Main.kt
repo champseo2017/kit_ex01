@@ -1,35 +1,36 @@
 /*
 
-    อินสแตนซ์และตัวแปรที่ต้องใช้ร่วมกัน
+    Inheritance & Interface
+    วิธีพัฒนาต่อเติมความสามารถจากคลาสเดิมที่มีอยู่แล้ว
+    เรียกว่า การสืบทอด (Inheritance)
 
-   ใช้ m พิมพ์เล็ก นำหน้าชื่อพร็อปเพอร์ตี้หรือตัวแปรที่ใช้ร่วมกันระหว่างเมธอด
-   และ กำหนดโมดิฟายเออร์เป็น private เช่น
+    รูปแบบการสืบทอดใน Kotlin จะใช้เครื่องหมายโคล่อน (:)
 
-   class MainActivity: AppCompatActivity() {
-    private lateinit var mBtnOK: Button
-    private lateinit var mTxtData: TextView
-    private var mIntNumber: Int = 0
-    private var mFloatNumber: Float? = null
-    private var mBool: Boolean = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        mBtnOK = findViewById(R.id.button)
-        mTxtData = findViewById(R.id.textView)
+    class Subclass : Superclass () {
     }
 
-    private fun test() {
-       mBtnOK.text = "Hello"
-       mBtnOK.performClick()
-       val str = mTxtData.text
-       mIntNumber = 100
-       mFloatNumber = 123.45f
-       mBool = true
+    class NewClass : OldClass () {
     }
 
-   }
+    - Kotlin ไม่สนับสนุนการสืบทอดจากหลายคลาส (Multiple Inheritance)
+    ในแต่ละคลาสจะสืบทอดจากคลาสอื่นได้เพียงอันเดียวเท่านั้น
+
+    - คลาสต่างๆ จะสืบทอดต่อเนื่องกันกี่ชั้นก็ได้ หากระบุโมดิฟายเออร์ open เช่น
+    คลาส B สืบทอดจาก A และคลาส C สืบทอดจาก B เป็นต้น
+
+    open class A { // ระบุโมดิฟายเออร์ open เพื่อบ่งชี้ว่า คลาสนี้สามารถสืบทอดได้
+    }
+
+    open class B : A() {
+    }
+
+    class C : B() {
+    }
+
+    class D : C() { // Error เพราะคลาส C ไม่ระบุโมดิฟายเออร์ open จึงสืบทอดไม่ได้
+    }
+
+
 
 
 * */
