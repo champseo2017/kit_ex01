@@ -8,37 +8,23 @@
 
     downTo ฟังก์ชันสำหรับกำหนดช่วงข้อมูลจากมากไปน้อย
 
-    Rage Operator ใช้ 2 จุด (..)
-    ค่าแรก..ค่าสุดท้าย [step]
+   ** การกำหนดช่วงข้อมูลด้วยฟังก์ชัน until
+   ฟังก์ชัน until จะวางไว้ระหว่างค่าแรกและค่าสุดท้าย
 
-    - ค่าแรก ต้องน้อยกว่าหรือเท่ากับ ค่าสุดท้าย
-    - Range จะเพิ่มทีละ 1 หากต้องการเพิ่มค่าต่างจากนี้ ให้ทำที่ step เป็นเลข
-    จำนวนเต็มบวก
+   ค่าแรก until ค่าสุดท้าย [step]
 
-    - หากกำหนดค่าแรก มากกว่าค่าสุดท้ายภายใน range จะมีเฉพาะค่าแรกและค่าสุดท้าย แต่
-    ไม่มีข้อมูลภายในช่วงนั้น เป็น Empty range
-    - คำสั่งตรวจสอบค่าของตัวแปร range ได้คือ first, last, step, isEmpty()
-    ใช้โอเปอร์เรเตอร์ in
+   ฟังก์ชัน until จะต่างจาก Range Operator (..) ไม่นับค่าสุดท้าย
+   ว่าอยู่ใน Range อย่างอื่นเหมือนกันหมด
 
 
 * */
 
 fun main(args: Array<String>) {
 
-    val a = 1..20
-    println(a.first)
-    println(a.last)
+    val a = 1 until 10
+    println(a)
 
-    val b =20
-    val c = 10..b step 3
-    println(c.first)
-    println(c.last)
-    println(c.step)
-    println(c.isEmpty())
-
-    val d = 100..50
-    println(d.first)
-    println(d.last)
-    println(d.isEmpty())
+    val b = 0 until 100 step 2
+    val c = 10 until 20 step 3
 
 }
