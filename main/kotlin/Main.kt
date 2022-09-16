@@ -1,34 +1,22 @@
 /*
-    การเก็บข้อมูลในแบบ Pair
+    การเก็บข้อมูลในแบบ Triple
 
-    - คือ การเก็บข้อมูลที่มีสมาชิก 2 ตัว หรือ ข้อมูลที่มีลักษณะเป็นคู่
-    Pair(สมาชิกตัวที่ 1, สมาชิกตัวที่ 2)
+    - คือการเก็บข้อมูลที่มีสมาชิก 3 ตัว
+    Triple(สมาชิกตัวที่ 1, สมาชิกตัวที่ 2, สมาชิกตัวที่ 3)
 
-    เมื่อเราต้องการอ่านค่าสมาชิกไปใช้งาน ให้อ้างอิงผ่านชื่อ first หรือ second
-    สำหรับตัวแรกและตัวที่สองตามลำดับ
+    - เมื่อต้องการอ่านค่าสมาชิกไปใช้งาน อ้างอิงผ่านชื่อ first, second หรือ third
+    - หรือ สร้างตัวแปร แล้วตามด้วยลำดับสมาชิกในวงเล็บ
 
-    val size = Pair(50, 100)
-    val width = size.first
-    val height = size.second
+    val boxSize = Triple(10, 20, 30)
+    val volume = boxSize.first * boxSize.second * boxSize.third
 
-    val name = Pair("James", "Bond")
-    val msg = "Hi ${name.first} ${name.second}"
+    val (date, month, year) = Triple(1, "มกราคม", 2563)
+    println("วันนี้เป็นวัน $date $month $year")
 
-    val error = Pair(404, "Not Found")
-    print("Error: ${error.first} - ${error.second}")
+    val (hour, minute, _) = Triple(12, 30, 0)
+    println("ขณะนี้เวลา $hour:$minute")
 
-    นอกจากนี้ อาจสร้างตัวแปรด้วยชื่อที่ต้องการไว้ในวงเล็บ () เพื่อ
-    ใช้แทนสมาชิกแต่ละตัวของ Pair
-
-    val (latitude, longitude) = Pair(80.1234, 100.5678)
-
-    print(latitude)
-
-    val (firstname, lastname) = Pair("James", "Bond")
-
-    print("Hi $firstname $lastname")
-
-
+    - ตัวแปรใดที่ไม่ได้นำไปใช้งาน อาจแทนตัวแปรนั้นด้วยเครื่อหมาย _
 
 * */
 
