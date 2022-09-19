@@ -1,21 +1,28 @@
 /*
-   การสร้างอาร์เรย์ของชนิดข้อมูลพื้นฐาน
+   การเปลี่ยนรูปแบบตัวพิมพ์
 
-   - หากต้องบังคับให้จัดเก็บข้อมูลในอาร์เรย์เป็นชนิดเดียวกันทั้งหมด
+   - toLowerCase() แปลงสตริงที่กำหนดให้เป็นตัวพิพม์เล็กทั้งหมด
+   - toUpperCase() แปลงสตริงที่กำหนดให้เป็นตัวพิมพ์ใหญ่ทั้งหมด
+   - capitalize() แปลงอักขระแรกของสตริง ให้เป็นตัวพิมพ์ใหญ่
+   - decapitalize() ยกเลิกการแปลงอักขระตัวแรกของสตริง เป็นตัวพิมพ์ใหญ่
 
-   วิธีที่ 1 ใช้คลาส XxxArray เมื่อ Xxx คือชนิดข้อมูลพื้นฐาน
-    val oddNums: IntArray = IntArray(3) // 3 คือจำนวนสมาชิกของอาร์เรย์
-    oddNums[0] = 1 // กำหนดค่าให้กับสมาชิก
-    oddNums[1] = 2
-    oddNums[2] = 3.5 // Error สมาชิกต้องเป็น Int
-    oddNums[3] = 4 // Error จำนวนสมาชิกมีได้เพียง 3 ตัว
-    val vowels = CharArray(5)
-    vowels[0] = 'e'
+   var str = "Intellij IDEA"
+    val s1 = str.lowercase()
+    val s2 = str.uppercase()
+
+
+    str = "android studio"
+    val s3 = str.replaceFirstChar({ it.uppercase() })
+
+    str = "Android Studio"
+    val s4 = str.replaceFirstChar({ it.lowercase() })
+
+    println(s3)
+    println(s4)
 
 * */
 
 fun main(args: Array<String>) {
-
 
 
 
