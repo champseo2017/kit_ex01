@@ -1,27 +1,31 @@
 /*
-   การตรวจสอบสตริงว่าง
+   การตรวจสอบจุดเริ่มต้นและสิ้นสุดสตริง
 
-   isEmpty() เป็นสตริงว่าง ("") หรือไม่ ถ้าใช้จะคืนค่า true
-   isNotEmpty() ไม่ เป็นสตริงว่างใช้หรือไม่ (ตรงข้ามกับ isEmpty)
-   isNullOrEmpty() เป็นค่า null หรือสตริงว่าง หรือไม่ ถ้าใช้จะคืนค่า true
-   isBlank() เป็นสตริงที่ไม่มีอักขระใดๆ เลย ใช้หรือไม่ ถ้าใช้จะคืนค่า true
-   isNotBlank() ไม่มีสตริงที่ไม่มีอักขระใดๆ เลย ใช้หรือไม่
-   isNullOrBlank() เป็นค่า null หรือสตริงที่ไม่มีอักขระใดๆ เลย หรือไม่ ถ้าใช้จะคืนค่า true
+   - คือ การตรวจสอบว่าสตริงนั้นเริ่มต้น หรือ ลงท้ายด้วยสตริงที่ระบุหรือไม่
 
-   val str1 = "" // สตริงว่าง
-    val a = str1.isEmpty() // true
-    val b = str1.isBlank() // true
+   - startWith(สตริง [,ignoreCase=true/false])
+     - ตรวจสอบว่าขึ้นต้นด้วยสตริงที่ระบุหรือไม่ ใช้คืนค่า true
+       ignoreCase เป็นบอกว่าสนใจตัวพิมพ์หรือไม่
 
-    val str2 = " " // ช่องว่าง 1 ช่องขึ้นไป
-    val c = str2.isEmpty() // false
-    val d = str2.isBlank() // true
+   - endsWith(สตริง [,ignoreCase=true/false])
+     - ตรวจสอบว่าลงท้ายด้วยสตริงที่ระบุหรือไม่ ใช้คืนค่า true
 
-    val str3 = "" // หากในสตริงมีอักขระที่ไม่มีรูปร่างหน้าตา
-    val e = str2.isEmpty() // false
-    val f = str3.isBlank() // true
-    val g = " \n".isBlank() // true
+   - หากไม่ระบุ ignoreCase หรือ กำหนดค่าเป็น true ถือว่า ไม่ สนใจความแตกต่าง
+   ของตัวพิมพ์
 
-    val h = " _ ".isBlank() // false
+   val url = "http://www.deve.com"
+    if (url.startsWith("http://")
+        || url.startsWith("https://")) {
+        println("ggwp")
+    } else if (url.endsWith(".com")) {
+        println("ggwp")
+    }
+
+    val img = "logo.png"
+    if (img.endsWith("PNG", ignoreCase = true)) {
+        print("gogog")
+    }
+
 
 * */
 
