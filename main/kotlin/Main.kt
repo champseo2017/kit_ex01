@@ -57,5 +57,9 @@ fun main(args: Array<String>) {
     // เลขสุ่มที่ได้ จะเก็บอยู่ใน Byte Array ตามจำนวนที่กำหนด
     // เช่น nums = byteArrayOf(50, 12, -83, 61, -1167667)
 
+    for(a in nums) {
+        println(a)
+    }
+
 
 }
