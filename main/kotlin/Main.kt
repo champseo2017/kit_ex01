@@ -1,65 +1,76 @@
 /*
-    การสร้างเลขสุ่ม
+    การจัดรูปแบบตัวเลข
 
-    การสร้างเลขสุ่มจะทำผ่านคลาส Random
+    คลาส NumberFormat
+    - ใน Kotlin ยังไม่มีคลาสที่ใช้สำหรับการจัดรูปแบบตัวเลข
+    แต่สามารถนำคลาสของ Java มาใช้ได้ นั่นคือ คลาส NumberFormat
+    (แพ็คเกจ java.text.NumberFormat)
 
-    1. Kotlin คลาส Random จะอยู่ในแพ็คเกจ kotlin.random.Random
-    import kotlin.random.*
+    - คลาส NumberFormat มีเมธอดในการสร้างอินสแตนซ์ดังนี้
 
-    - nextInt()
-      - เมื่อเรียกเมธอดนี้ในแต่ละครั้งจะได้เลขสุ่มเป็นตัวเลขชนิด Int
+    - getInstance()
+      - เป็นการจัดรูปแบบพื้นฐานคือ ให้มีเครื่องหมายคอมม่า (,) คั่นหลักพัน
+      มีทศนิยมไม่เกิน 3 ตำแหน่ง เช่น 12345 => 12,345 หรือ
+      1141.59265 => 1,141.592
 
-    - nextInt(ขอบเขตบน)
-      - จะได้เลขจำนวนเต็มบวกที่ไม่เกิน ขอบเขตบน -1
-      nextInt(500) จะได้เลขสุ่มค่าไม่เกิน 499
+     - getCurrencyInstance()
+       - สำหรับจัดรูปแบบทางการเงิน เช่น มี $ หรือ ฿ นำหน้า
+       ขึ้นกับการตังค่าในระบบ รวมถึงมี , คั่นหลักพันให้ด้วย และมีทศนิยม 2 ตำแหน่ง
 
-    - nextInt(ค่าเริ่มต้น, ขอบเขตบน)
-      - จะได้เลขจำนวนเต็มที่อยู่ระหว่างค่าเริ่มต้น จนถึง (ขอบเขตบน -1)
-      nextInt(10, 20) => 10 - 19
+      - getIntegerInstance()
+       - จัดรูปแบบเฉพาะส่วนจำนวนจำนวนเต็ม โดยมี , คั่นหลักพัน
+       ส่วนทศนิยมจะถูกตัดทิ้ง
 
-    - nextLong(), nextLong(ขอบเขตบน) , nextLong(ค่าเริ่มต้น, ขอบเขตบน)
-    เช่นเดียวกับ nextInt() จะได้เป็นตัวเลขชนิด Long
+       - getPercentInstance()
+        - สำหรับจัดรูปแบบเป็นเปอร์เซ็นต์ คือการคูณด้วย 100 แล้วใช้ , คั่นหลัก
+        พันให้ด้วย มีทศนิยมไม่เกิน 2 ตำแหน่ง แล้วมี % ต่อท้าย เช่น 0.75 => 75%
 
-    nextDouble()
-     - เมื่อเรียกใช้จะได้เลขสุ่ม 0 - 1 คล้ายกับ Math.random() ของ Java
+        จะคืนค่าเป็น String เสมอ
 
-    nextBoolean()
-     - จะได้ค่า true หรือ false
+        var numFormat = NumberFormat.getInstance()
+        var str = numFormat.format(123456789.8944444)
+        println(str)
 
-    nextFloat()
-     - เมื่อเรียกใช้จะได้เลขสุ่ม 0 - 1 คล้ายกับ Math.random() ของ Java
-       - ได้ตัวเลขเป็นชนิด float
+        numFormat = NumberFormat.getCurrencyInstance()
+        str = numFormat.format(233323232.43434343)
+        println(str)
 
-    nextBytes(จำนวน)
-     - สร้างเลขสุ่มชนิด Byte(-128 ถึง 127)
-       - ได้ผลลัพธ์เป็น Byte Array
-       ที่มีจำนวนสมาชิกที่ระบุ
+        - คลาสเพิ่มเติม
+         - setMaximumIntegerDigits(จำนวนตัวเลข)
+           - ให้มีจำนวนตัวเลขในส่วนจำนวนเต็มสูงสุดไม่เกินกี่ตัว ถ้า
+           เกินกว่าค่าที่ระบุนี้ตัวเลขด้านซ้ายมือจะถูกตัดออกไปให้เหลือเท่ากับจำนวนที่ระบุ
 
-     nextBytes(byte_array)
-       กำนหดค่าเป็น byte_array ได้ผลลัพธ์คืนเป็น Bytes ของมัน
+         - setMinimumlntegerDigits(จำนวนตัวเลข)
+           - ให้มีจำนวนตัวเลขในส่วนจำนวนเต็มอย่างน้อยกี่ตัว ถ้ามีน้อยกว่าค่าที่ระบุนี้จะเติม
+           0 ด้านซ้ายมือจนครบจำนวนตามที่ระบุ
+
+         - setMaximumFractionDigits(จำนวนตัวเลข)
+           - ให้มีเลขทศนิยมสูงสุดไม่เกินกี่ตำแหน่ง ถ้าเกินค่าที่ระบุนี้ ตัวเลขด้านขวา
+           มือจะถูกตัดออกไปให้เหลือเท่ากับจำนวนที่ระบุ
+
+         - setMinimumFractionDitgits(จำนวนตัวเลข)
+           ให้มีเลขทศนิยมอย่างน้อยกี่ตำแหน่ง ถ้ามีน้อยกว่าค่าที่ระบุนี้จะเติม 0 ด้านขวามือ
+           จนครบจำนวนตามที่ระบุ
+
+         - parse(setNum_formatted)
+           - แปลงตัวเลขที่จัดรูปแบบแล้ว (สตริง) กลับไปเป็นชนิดข้อมูลพื้นฐาน
 
 * */
 
-import kotlin.random.*
+import java.text.NumberFormat // ใช้คลาสของ Java
+
 
 fun main(args: Array<String>) {
 
-    val a = Random.nextInt()
-    val b = Random.nextInt(1000)
-    val c = Random.nextInt(100, 1000)
-    val d = Random.nextDouble()
-    val bool = Random.nextBoolean()
-    val bytes = Random.nextBytes(3)
-    // ได้ผลลัพธ์เป็น Byte Array มีสมาชิก 3 ตัว
+    val numFormat = NumberFormat.getInstance()
+    numFormat.minimumIntegerDigits = 10
+    numFormat.minimumFractionDigits = 4
 
-    val nums = ByteArray(5)
-    Random.nextBytes(nums)
-    // เลขสุ่มที่ได้ จะเก็บอยู่ใน Byte Array ตามจำนวนที่กำหนด
-    // เช่น nums = byteArrayOf(50, 12, -83, 61, -1167667)
+    val str = numFormat.format(1234567.89)
+    println(str)
 
-    for(a in nums) {
-        println(a)
-    }
-
+    val num = numFormat.parse(str)
+    val x = num.toDouble()
+    println(x)
 
 }
