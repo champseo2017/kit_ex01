@@ -5,10 +5,6 @@
       คำสั่งต่างๆ
     }
 
-* */
-
-fun main(args: Array<String>) {
-
     fun oddEven(num: Int) {
         if (num % 2 == 0) {
             print("Even")
@@ -28,6 +24,23 @@ fun main(args: Array<String>) {
             }
             print(text)
         }
+    }
+
+    ใน Kotlin ไม่สามารถเปลี่ยนค่าของพารามิเตอร์
+    ภายในฟังก์ชันโดยตรงได้ หากต้องการเปลียนพารามิเตอร์ใน function
+    ให้สร้างตัวแปรด้วย var ขึ้นมาใหม่ภายในฟังก์ชัน จากนั้นกำหนดค่าของ
+    พารามิเตอร์ให้กับมัน แล้วทำการเปลียนค่าของมันแล้วนำไปใช้แทนพารามิเตอร์
+
+* */
+
+fun main(args: Array<String>) {
+
+    fun thaiLongDate(day: Int, month: Int, yearCE: Int) {
+        var m = arrayOf("มกราคม")
+        // yearCE += 543 Error
+        var yearBE = yearCE
+        yearBE += 543
+        print("$day ${m[month-1]} $yearBE")
     }
 
 
