@@ -21,6 +21,63 @@
    - ถ้าไม่สร้างตัวแปรไปรับค่า สามารถเรียกฟังก์ชันแทนตัวแปรในตำแหน่ง
    ที่ต้องการใช้งานได้เลย
 
+   - ถ้าเราเปรียบเทียบเงื่อนไขด้วย if หรือ when สามารถนำคำสั่ง
+   return ไปใส่ไว้แต่ละเงื่อนไขได้เลย แต่ที่สำคัญคือ ต้องมีคำสั่ง else ต่อท้ายเสมอ
+   ถ้าตัด else ออกจะ error
+
+   fun max(num1: Int, num2: Int) : Int {
+
+     if (num1 >= num2) {
+       return num1
+     } else if (num1 < num2) {
+       return num2
+     } else { // Error ถ้าไม่มี else
+     }
+
+   }
+
+   fun numDaysOfMonth(month: Int, isLeapYear: Boolean) : Int {
+
+      when(month) {
+        1, 3, 5, 7, 8, 10, 12 -> return 31
+        4, 6, -> return 30
+        2 -> return if (isLeapYear) 29 else 28
+        else -> return 0 // ไม่มีตรงนี้ error
+      }
+
+   }
+
+   การเขียน return ในแบบ Condition Expression
+   - คือ การเขียน return ในหน้า if หรือ when แล้วภายใน
+   บล็อกหรือเงื่อนไขก็แค่ระบุค่าที่จะส่งกลับ
+
+   fun min(num1: Int, num2: Int) : Int {
+     return if (num1 <= num2) num1 else num2
+   }
+
+   fun result(myScore: Int, yourScore: Int) : String {
+
+       return if (myScore > yourScore) {
+         "I Win" // ส่งค่ากลับ
+       } else if (myScore < yourScore) {
+         "You Win"
+       } else {
+         "Draw"
+       }
+
+   }
+
+   fun numDaysOfMonth(month: Int,
+   isLeapYear: Boolean) : Int {
+
+    return when (month) {
+      1, 3 -> 31
+      4 -> if (isLeapYear) 29 else 28
+      else -> 0
+    }
+
+   }
+
 
 * */
 
