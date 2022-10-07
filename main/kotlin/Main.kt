@@ -1,41 +1,43 @@
 /*
 
-    พารามิเตอร์แบบ Variable Argument
-    - ไว้ใช้รับจำนวน data แต่ละชุดที่มีขนาดไม่เท่ากัน
-    - วิธีสร้าง
-       - วางคีย์เวิร์ด vararg ไว้หน้าชื่อพารามิเตอร์ตัวนั้น เช่น
-         - varag data:Int
+   พารามิเตอร์แบบอาร์เรย์
+   - ข้อมูลพื้นฐาน XxxArray
+   - Array<ชนิดข้อมูล>
 
-       - เข้าถึงค่า พารามิเตอร์แบบ varag โดยการใช้ อาร์เรย์
-
-       - ใน fun สามารถมีทั้งพารามิเตอร์แบบปกติ และ แบบ Variable Argumnet ร่วม
-       กันได้ แต่จะมีพารามิเตอร์แบบ Variable Argumnet ได้เพียงอันเดียวเท่านั้น
-
-
+   fun summation2(data: Array<Double>) : Double {
+       //...
+   }
 
 * */
 
-fun f1(vararg data: Int) {}
-fun f2(a: String, vararg data: Int) {}
-// fun f3(a: String, vararg b: Int, vararg c: Float) {}
-// Error จะมี Variable Argument ได้เพียวตัวเดียวเท่านั้น
-
-fun summation(vararg data: Int) : Int {
-    var sum = 0
+fun summation(data: IntArray) : Int {
+    var sum: Int = 0
     for (n in data) {
         sum += n
     }
     return sum
 }
 
+fun summation2(data: Array<Double>) : Double {
+    var sum: Double = 0.0
+    for (n in data) {
+        sum += n
+    }
+    return sum
+}
+
+
 fun main(args: Array<String>) {
 
-    val sum1 = summation(1, 2, 3, 4, 5)
-    // เรียกฟังก์ชัน กำหนดอาร์กิวเมนต์กี่จำนวนก็ได้ คั่นด้วยเครื่องหมาย ,
-    val sum2 = summation(6, 7, 8)
-    val arr = intArrayOf(10, 20, 30)
-    val sum3 = summation(*arr)
-    // กำหนดอาร์กิวเมนต์แบบอาร์เรย์ ให้วางเครื่องหมาย * ไว้ข้างหน้าอาร์เรย์
-    val sum4 = summation(*intArrayOf(40, 50, 60))
+    val i = intArrayOf(1, 2, 3)
+    val sum = summation(i)
+    // อาร์กิวเมนต์หรือข้อมูลที่จะกำหนดให้แก่พารามิเตอร์ที่เป็นอาร์เรย์ ต้องเป็นแบบอาร์เรย์เช่น
+    // เดียวกัน
+    println(sum)
+
+    val d = doubleArrayOf(1.2, 3.4, 5.6)
+    val sum2 = summation2(d.toTypedArray())
+    // Array<Type> Generic ให้อาร์เรย์มีความยืดหยุ่นในการระบุชนิดข้อมูล
+    println(sum2)
 
 }
