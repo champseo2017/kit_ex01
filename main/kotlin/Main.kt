@@ -1,27 +1,41 @@
 /*
 
-  พารามิเตอร์แบบ default value
+    พารามิเตอร์แบบ Variable Argument
+    - ไว้ใช้รับจำนวน data แต่ละชุดที่มีขนาดไม่เท่ากัน
+    - วิธีสร้าง
+       - วางคีย์เวิร์ด vararg ไว้หน้าชื่อพารามิเตอร์ตัวนั้น เช่น
+         - varag data:Int
 
-  - กำหนดรูปแบบ default value ชื่อพารามิเตอร์: ชนิดข้อมูล = ค่าดีฟอลต์
-  - เมื่อเรียกใช้ฟังก์ชัน หากใช้ค่าที่ตรงกับดีฟอลต์ ก็ไม่จำเป็นต้องระบุอาร์กิวเมนต์ลงไป
-  - ยกเว้นกรณีที่จะใช้ค่าเป็นอย่างอื่น
+       - เข้าถึงค่า พารามิเตอร์แบบ varag โดยการใช้ อาร์เรย์
 
-  - เราสามารถสลับตำแหน่งอาร์กิวเมนต์แบบ default ได้ สามารถวางไว้ก่อนอาร์กิวเมนต์
-  ที่ไม่ใช้ค่าดีฟอลต์ได้
+       - ใน fun สามารถมีทั้งพารามิเตอร์แบบปกติ และ แบบ Variable Argumnet ร่วม
+       กันได้ แต่จะมีพารามิเตอร์แบบ Variable Argumnet ได้เพียงอันเดียวเท่านั้น
+
+
 
 * */
 
-fun total(q: Int, p: Double, vat: Double = 7.0) = q * p * (1 + (vat / 100))
+fun f1(vararg data: Int) {}
+fun f2(a: String, vararg data: Int) {}
+// fun f3(a: String, vararg b: Int, vararg c: Float) {}
+// Error จะมี Variable Argument ได้เพียวตัวเดียวเท่านั้น
+
+fun summation(vararg data: Int) : Int {
+    var sum = 0
+    for (n in data) {
+        sum += n
+    }
+    return sum
+}
 
 fun main(args: Array<String>) {
 
-    val a = total(10, 100.0) // ใช้ค่าดีฟอลต์คือ vat = 7.0
-    val b = total(vat=7.5, q = 5, p = 500.0)
-    // หากใช้ค่า vat ที่แตกต่างไปจากดีฟอลต์ ต้องระบุตามปกติ
-    // สามารถสลับตำแหน่งได้
-    val c = total(p=500.0, q = 5, vat = 7.5)
-    // สามารถสลับตำแหน่งได้
-
-
+    val sum1 = summation(1, 2, 3, 4, 5)
+    // เรียกฟังก์ชัน กำหนดอาร์กิวเมนต์กี่จำนวนก็ได้ คั่นด้วยเครื่องหมาย ,
+    val sum2 = summation(6, 7, 8)
+    val arr = intArrayOf(10, 20, 30)
+    val sum3 = summation(*arr)
+    // กำหนดอาร์กิวเมนต์แบบอาร์เรย์ ให้วางเครื่องหมาย * ไว้ข้างหน้าอาร์เรย์
+    val sum4 = summation(*intArrayOf(40, 50, 60))
 
 }
