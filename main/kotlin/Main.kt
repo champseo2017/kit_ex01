@@ -1,29 +1,30 @@
 /*
 
-    การส่งหลายๆ ค่ากลับจากฟังก์ชัน
+    การส่งค่ากลับแบบ Pair หรือ Triple
 
-    - การส่งค่ากลับแบบอาร์เรย์
+    - การส่งผลลัพธ์กลับในแบบ Pair หรือ Triple เป็นอีกทางเลือกหนึ่ง
 
-      - ถ้าเป็น Array ชนิดข้อมูลพื้นฐานก็ส่งค่า Array ชนิดข้อมูลพื้นฐานออกไป
-      - ถ้าไม่ใช้ชนิดข้อมูลพื้นฐาน อาจกำหนดเป็น Array<ชนิดข้อมูล> ภายในฟังก์ชัน
-      ให้สร้างผลลัพธ์ให้เป็นอาร์เรย์ของข้อมูลชนิดนั้น หลังจากนั้นก็คืนผลลัพธ์ออกไป
+    - Pair<ชนิดข้อมูล_1, ชนิดข้อมูล_2>
+    - Triple<ชนิดข้อมูล_1, ชนิดข้อมูล_2, ชนิดข้อมูล_3>
 
 * */
 
-fun oneToTenEvenNums() : IntArray {
-    return intArrayOf(2, 4, 6, 8, 10)
-}
+fun summation(vararg data: Int) : Pair<Int, Double> {
 
-fun getVowels(): Array<String> {
-    return arrayOf("a", "e", "i", "o", "u")
+    var sum = 0
+
+    for (n in data) {
+        sum += n
+    }
+
+    var average = sum.toDouble() / data.count().toDouble()
+
+    return Pair(sum, average)
 }
 
 fun main(args: Array<String>) {
 
-    var vowels = getVowels()
-
-    for (v in vowels) {
-        println(v)
-    }
+    val sum = summation(10, 15, 18, 22)
+    print("sum: ${sum.first}, average: ${sum.second}")
 
 }
