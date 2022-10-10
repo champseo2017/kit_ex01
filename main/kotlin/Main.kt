@@ -1,41 +1,67 @@
 /*
 
-    ฟังก์ชันแบบโอเวอร์โหลด
-     - ชื่อฟังก์ชันต้องเขียนเหมือนกัน (รูปแบบตัวพิมพ์ต้องตรงกันทุกอักขระ)
-     - รูปแบบของพารามิเตอร์ต้องแตกต่างกัน
-       - ชนิดข้อมูลของพารามิเตอร์เหมือนกัน จำนวนพารามิเตอร์ต้องไม่เท่ากัน
-       - ชนิดข้อมูลของพารามิเตอร์ต่างกัน จำนวนพารามิเตอร์อาจเท่ากันหรือไม่ ก็ได้
+    ฟังก์ชันแลมบ์ดา
 
-     - ชนิดข้อมูลส่งกลับอาจเหมือนหรือแตกต่างกันก็ได้
+    ฟังก์ชันปกติ
+    fun write(str: String) = print(str)
+    {str: String -> print(str)}
+
+    fun add(a: Double, b:Double) = a + b
+    {a:Double, b:Double -> a + b}
+
+    fun hello() = print("Hello")
+    {print("Hello")}
+
+    fun oddEven(n: Int) = if (n % 2 == 0) "Even" else "Odd"
+    {n: Int -> if (n % 2 == 0) "Even" else "Odd"}
+
+    รูปแบบทั่วไปของ Lambda
+    รูปแบบทั่วไปของการเขียน Lambda Expression ใน Kotlin คือ
+
+    val add: (Int, Int) -> Int = {a: Int, b: Int -> a + b}
+ (Variable)   (Type          )    (Parameters)      (Body)
+
+ val ชื่อแลมบ์ดา : (ชนิดข้อมูลพารามิเตอร์) -> ชนิดข้อมูลผลลัพธ์ = {พารามิเตอร์ -> คำสั่งต่างๆ}
+
+ - ชื่อแลมบ์ดา เป็นตัวแปรใช้อ้างถึงแลมบ์ดา
+ - พารามิเตอร์ เป็นพารามิเตอร์ของฟังก์ชัน ไม่ต้องเขียนในวงเล็บ
+ - -> เชื่อมโยงระหว่างพารามิเตอร์และคำสั่งของแลมบ์ดา
+ - body ใช้กำหนดการทำงาน
+ - ชนิดข้อมูลพารามิเตอร์ ชนิดข้อมูลที่รับเข้ามาทำงานในส่วน Body
+ - ชนิดข้อมูลผลลัพธ์ ชนิดข้อมูลผลลัพธ์ที่จะส่งกลับออกไป
 
 * */
 
 
-fun max(n1: Int, n2: Int) = if (n1 >= n2) n1 else n2
-
-fun max(n1: Int, n2: Int, n3: Int) : Int {
-    var mx = n1
-    mx = if (n2 > mx) n2 else mx
-    mx = if (n3 > mx) n3 else mx
-    return mx
-}
-
-fun max(n1: Double, n2: Double) = if (n1 >= n2) n1 else n2
-
-fun max(n1: Double, n2: Double, n3: Double) : Double {
-    var mx = n1
-    mx = if (n2 > mx) n2 else mx
-    mx = if (n3 > mx) n3 else mx
-    return mx
-}
-
 fun main(args: Array<String>) {
 
- val a = max(10, 20)
- val b = max(10.5, 20.5)
- val c = max(108, 1009, 189)
- val d = max(9.9, 10.9, 11.9)
+  val inc: (Int) -> Int = {n: Int -> n + 1}
+  // รับพารามิเตอร์ชนิด Int เข้ามา 1 ตัว บวกเพิ่มอีก 1 ส่งค่ากลับเป็นชนิด Int
 
- print(d)
+  val add: (Int, Int) -> Int = {n1: Int, n2: Int -> n1 + n2}
+  // รับพารามิเตอร์ชนิด Int เข้ามา 2 ตัว นำมาบวกกัน ส่งค่าลกับเป็นชนิด Int
+
+  val divide: (Double, Double) -> Double = {n1: Double, n2: Double
+  -> n1 / n2}
+
+  val oddEven: (Int) -> String = {
+      n: Int -> if (n % 2 == 0) "Even" else "Odd"
+  }
+
+//  val echo: (String) -> Uint = {
+//      str: String -> println(str)
+//  }
+
+  val sawasdee: () -> Unit = {
+      print("Hello")
+  }
+    sawasdee()
+
+    val a = inc(10)
+    val b = add(20, 30)
+    val c = oddEven(99)
+    sawasdee()
+    // นำแลมบ์ดาไปใช้งาน อ้างอิงผ่านชื่อของมัน พร้อมกำหนดค่าพารามิเตอร์ในรูปแบบ
+    // เดียวกับการเรียกฟังก์ชัน
 
 }
