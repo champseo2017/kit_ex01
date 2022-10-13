@@ -1,28 +1,37 @@
 /*
 
-    Type Inference
-    - ใช้ Type Inference เป็นการระบุชนิดข้อมูลเพียงฝั่งใด
-    ฝั่งหนึ่ง
+    Function Type
 
-    // แบบไม่ใช้ Type Inference
-    val inc: (Int) -> Int = { it + 1 }
-    val add: (Int, Int) -> Int = { n1, n2 -> n1 + n2 }
-    val divide: (Double, Double) -> Double = { n1, n2 -> n1 / n2 }
-    val oe: (Int) -> String = { if (it % 2 == 0) "Even" else "Odd" }
-    val echo: (String) -> Unit = { println(it) }
+    val inc: (Int) -> Int
+    val divide: (Double, Double) -> Double
+    val oe: (Int) -> String
+    val echo: (String) -> Unit
+
+    - ตัวแปรปกติ val x: Int = 100
+      - เราจะกำหนดค่าที่แน่นอนให้กับมัน
+
+    - แต่ถ้าเป็น Function Type ต้องเป็นวิธีการทำงานเพื่อดำเนินการกับ
+    ข้อมูล (พารามิเตอร์) ที่รับเข้าไป เรียกว่า แลมบ์ดา และ หากอยากปรับเปลียนวิธีการทำงาน
+    สามารถกำหนดแลมป์ดาแบบใหม่ได้
+
+    - แลมป์ดา เป็นการกำหนดวิธีการทำงานของ Function Type
+
 
 * */
 
 
 fun main(args: Array<String>) {
 
-  val inc = {n: Int -> n + 1}
-  val add = {n1: Int, n2: Int -> n1 + n2}
-  val divide = { n1: Double, n2: Double -> n1 / n2 }
-  val oe = {n: Int -> if (n % 2 == 0) "Even" else "Odd"}
-  val echo = {str: String -> println(str)}
-  val sawasdee = { print("Hello") }
-  sawasdee()
+  var calculate: (Double, Double) -> Double
+  calculate = {a, b -> a + b}
+
+  val add = calculate(10.0, 20.0)
+
+  calculate = {a, b -> a * b}
+  val multiply = calculate(5.0, 10.0)
+
+  calculate = {a, b -> a / b}
+  val divider = calculate(15.0, 5.0)
 
 
 }
