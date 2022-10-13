@@ -1,37 +1,55 @@
 /*
 
-    Function Type
+    Higher Order Function
 
-    val inc: (Int) -> Int
-    val divide: (Double, Double) -> Double
-    val oe: (Int) -> String
-    val echo: (String) -> Unit
+    - ฟังก์ชันที่มีพารามิเตอร์แบบ Function Type
+    - เราสามารถนำพารามิเตอร์แบบ Function Type มาเขียนไว้นอกวงเล็บ
+    - () ก็ได้ เช่น fx(a = 10) {it + 1} นิยมใช้วิธีนี้มากกว่าการเขียนไว้ใน
+    - วงเล็บ
 
-    - ตัวแปรปกติ val x: Int = 100
-      - เราจะกำหนดค่าที่แน่นอนให้กับมัน
+    - การนำพารามิเตอร์แบบ Function Type มาวางไว้นอกวงเล็บ
+    - ควรใช้เมื่อฟังก์ชันนั้นมีพารามิเตอร์เพียงตัวเดียวที่เป็น Function Type (มีพารามิเตอร์
+    แบบปกติกี่ตัวก็ได้) โดยวางพารามิเตอร์แบบ Function Type ไว้ในลำดับสุดท้าย
 
-    - แต่ถ้าเป็น Function Type ต้องเป็นวิธีการทำงานเพื่อดำเนินการกับ
-    ข้อมูล (พารามิเตอร์) ที่รับเข้าไป เรียกว่า แลมบ์ดา และ หากอยากปรับเปลียนวิธีการทำงาน
-    สามารถกำหนดแลมป์ดาแบบใหม่ได้
-
-    - แลมป์ดา เป็นการกำหนดวิธีการทำงานของ Function Type
+    - กรณีที่ฟังก์ชันนั้นมีเฉพาะพารามิเตอร์ที่เป็น Function Type เมื่อเรียกใช้ฟังก์ชัน
+    ไม่จำเป็นต้องใส่วงเล็บ () หลังชื่อฟังก์ชัน
 
 
 * */
 
 
+fun fx(a: Int, calculation: (Int) -> Int) {
+  // พารามิเตอร์ตัวที่สองเป็นแบบ Function Type คือ (Int) -> Double
+  // นั่นหมายความว่า ต้องกำหนดค่าของพารามิเตอร์ตัวที่สองในแบบ แลมบ์ดา
+  // เพื่อระบุวิธีดำเนินการกับข้อมูลที่รับเข้ามา
+  val r = calculation(a)
+  println("Result: $r")
+}
+
+fun test(action: () -> Unit) {
+  action()
+}
+
+
 fun main(args: Array<String>) {
 
-  var calculate: (Double, Double) -> Double
-  calculate = {a, b -> a + b}
+  fx(a = 2, calculation = { it + 1 })
 
-  val add = calculate(10.0, 20.0)
+  fx(5, { 2 * it })
 
-  calculate = {a, b -> a * b}
-  val multiply = calculate(5.0, 10.0)
+  // แลมบ์ดา
+  val square: (Int) -> Int = {it * it}
+  fx(10, square)
 
-  calculate = {a, b -> a / b}
-  val divider = calculate(15.0, 5.0)
+  // เขียนแลมบ์ดานอกวงเล็บ
+  fx(a = 10) { it + 1 }
+  fx(5) { 2 * it }
+  fx(30) { it * it }
+
+  // กรณีที่ฟังก์ชันนั้นมีเฉพาะพารามิเตอร์ที่เป็น Function Type
+  test { // ปกติเขียนเป็น test() {...}
+    print("test")
+  }
 
 
 }
