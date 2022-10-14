@@ -1,3 +1,5 @@
+import java.awt.Shape
+
 /*
 
     Higher Order Function
@@ -30,6 +32,11 @@ fun test(action: () -> Unit) {
   action()
 }
 
+fun shape (width: Int, height: Int, action: (Int, Int) -> Double)
+: Double {
+  return action(width, height)
+}
+
 
 fun main(args: Array<String>) {
 
@@ -51,5 +58,16 @@ fun main(args: Array<String>) {
     print("test")
   }
 
+  val rectArea = shape(10, 20) { w, h -> (w * h).toDouble() }
+  val circleArea = shape(10, 0) {
+    r, _ -> 3.14 * r
+  }
+  // ฟังก์ชัน shape() เรากำหนด Type เป็น (Int, Int) -> Double ต้องมีพารามิเตอร์
+  // 2 ตัว ในส่วนของแลมบ์ดา ถ้าพารามิเตอร์ที่ไม่ได้ใช้สามารถใช้เครื่องหมาย _ เพื่อให้ครบตาม
+  // จำนวน
+
+  val triangleArea = shape(50, 30) { b, h -> 0.5 * b * h }
+
+  println(circleArea)
 
 }
