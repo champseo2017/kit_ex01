@@ -38,13 +38,25 @@ import java.awt.Shape
      d = "Kotlin"
      d = true
 
+     // ยังมีบางฟังก์ชันที่อาจคืนค่า null กลับมา เช่น readLine()
+        - toXxxOrNull()
+        - toIntOrNull()
+        - toDoubleOrNull()
+
 
 * */
 
 
 fun main(args: Array<String>) {
 
+   var str: String? = readln() // readLine() คืนค่าเป็น String?
+   var i: Int? = "123.45".toIntOrNull()
+   var d: Double? = "67.89MB".toDoubleOrNull()
+   var s: Short? = "".toShortOrNull()
 
+   // ถ้าไม่ระบุชนิดข้อมูลให้กับตัวแปรที่สามารถระบุค่า null ได้ จะไม่สามารถ กำหนดค่า
+   // ให้กับตัวแปรนั้นได้นอกจาก Null
+    // var a = null | a = 10 // Error
 
 
 }
