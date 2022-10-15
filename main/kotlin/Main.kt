@@ -2,29 +2,41 @@ import java.awt.Shape
 
 /*
 
-    การใช้ Lambda กับเมธอดของอาร์เรย์
-    - บางเมธอดของอาร์เรย์ มีพารามิเตอร์เป็น Function Type ดังนั้น ต้อง
-      กำหนดวิธีการดำเนินการให้กับมันในแบบแลมบ์ดา
+    Null Safety & Exception
 
-    - forEach(action: (T) -> Unit)
-      สำหรับดำเนินการกับสมาชิกแต่ละตัวของอาร์เรย์
+    ลักษณะของค่า Null
+     - ไม่มีค่าใดๆ
+     - ไม่เท่ากับ 0
+     - ไม่เท่ากับ Empty String ("") และ Blank String (" ")
+     - ไม่เท่ากับ false
+     - ไม่ตรงกับชนิดข้อมูลใดๆ
 
-    - forEachIndexed(action: (index: Int, T) -> Unit)
-      ดำเนินการกับเลขลำดับ และ ค่าของสมาชิกแต่ละตัวในอาร์เรย์
+     ใน Kotlin ไม่สามารถนำค่า null ไปกำหนดให้กับตัวแปร หรือ ค่าคงที่ใดๆ โดยตรงได้
+     เพราะ Null ไม่ตรงกับชนิดข้อมูลใดๆ เลย
 
-    - count(predicate: (T) -> Int)
-      จะนับข้อมูลเมื่อตัวดำเนินการเป็น true
-      ไม่ระบุอาร์กิวเมนต์ จะนับจำนวนสมาชิกทั้งหมด
-      สามารถนับจำนวนตามเงื่อนไขได้ return ค่าออกมาเป็น true หรือ false
+     val a: Int = null // Error
+     var b: String = "Hello"
+     b = null // Error
 
-    - filter(predicate: (T) -> Boolean)
-      - กรองสมาชิกใน Array ที่ตรงตามเงื่อนไขที่ระบุ
-      - ผลลัพธ์ที่ได้ส่งคืนมาเป็น Array ของสมาชิกที่ถูกเลือก
+     ใน Kotlin จะใช้วิธีการแบบ Null Safety สำหรับการกำหนดชนิดข้อมูลให้กับ
+     ตัวแปรที่มีโอกาสเป็น null ได้ โดยวางเครื่องหมาย ? ต่อท้ายชนิดข้อมูลของ
+     ตัวแปรหรือค่าคงที่นั้น เช่น
 
+     var a: Int?
+     var b: Double?
+     val c: String?
 
-    - filterNot(predicate: (T) -> Boolean)
-      - กรอกเอาสมาชิกที่ไม่ตรงตามเงื่อนไขที่ระบุ
-      - ทำงานตรงข้ามกับ เมธอด filter
+     // ตัวแปร a, b, c เป็นแบบ Nullable คือ นอกจากจะเก็บข้อมูลตามชนิดของมันได้
+     ปกติแล้ว ยังสามารถเป็นค่า null ได้
+
+     var a: Int? = 123
+     var b: Double? = 4.56
+     val c: String? = null
+     var d: Any? = null
+
+     d = 100
+     d = "Kotlin"
+     d = true
 
 
 * */
@@ -32,46 +44,7 @@ import java.awt.Shape
 
 fun main(args: Array<String>) {
 
-   val str = arrayOf("One", "Two", "Three")
-   str.forEach { println(it) }
 
-   val nums = intArrayOf(7, 11, 108, 1009, 101)
-   nums.forEach {
-    if (it % 2 == 0) {
-      println(it)
-    }
-  }
-
-  // forEachIndexed
-  val str2 = arrayOf("Zero", "One", "Two", "Three")
-  println("Index\t\tValue")
-  println("---------------")
-  str.forEachIndexed {
-    i, v -> println("$i \t \t \t \t $v")
-  }
-
-  // นับจำนวนสมาชิกที่ 3 หารลงตัว
-  val nums2 = intArrayOf(7, 11, 108, 1009, 99)
-  val c = nums2.count { it % 3 == 1 }
-  println("จำนวนสมาชิกที่ 3 หารลงตัวเท่ากับ $c")
-
-  val str3 = arrayOf("Zero", "One", "Two", "Three")
-  val c2 = str.count { it.startsWith("t", ignoreCase = true) }
-  // นับจำนวนสมาชิกที่ขึ้นต้นด้วยตัว t
-  // โดยไม่สนใจตัวพิพม์
-  // startsWith ให้ผลลัพธ์เป็น true / false
-
-  val nums3 = intArrayOf(101, 7, 11, 108, 1009)
-  val gt99 = nums3.filter { it > 99 } // return Array
-  println(gt99.joinToString(", "))
-
-  val str4 = arrayOf("Zero", "One", "Two", "Three")
-  val t = str4.filter { it.startsWith("t", ignoreCase = true)}
-  // เลือกเฉพาะตัว t โดยไม่สนใจตัวพิมพ์
-
-  val nums6 = intArrayOf(101, 7, 11, 108, 1009)
-  val lt99 = nums6.filterNot { it > 99 }
-  println(lt99.joinToString(","))
 
 
 }
