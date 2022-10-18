@@ -22,5 +22,25 @@ import java.awt.Shape
 
 fun main(args: Array<String>) {
 
+    // ใช้คำสั่ง if ตรวจสอบว่าตัวแปรมีค่าเป็น null หรือไม่
+    val x: Int? = 10
+    if (x !== null) {
+       println("x = $x")
+    } else {
+        println("x = null")
+    }
+
+    print("Enter number >>")
+    val str: String? = readln()
+    if (str != null) {
+        val n: Double? = str.toDoubleOrNull()
+        if (n !== null) {
+            print("n = $n")
+        } else {
+            print("Error! can't convert to a number")
+        }
+    } else {
+        print("Error!")
+    }
 
 }
