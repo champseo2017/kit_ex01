@@ -22,25 +22,39 @@ import java.awt.Shape
 
 fun main(args: Array<String>) {
 
-    // ใช้คำสั่ง if ตรวจสอบว่าตัวแปรมีค่าเป็น null หรือไม่
-    val x: Int? = 10
-    if (x !== null) {
-       println("x = $x")
-    } else {
-        println("x = null")
-    }
+    // การใช้ Elvis Operator
+    // หากตัวแปรมีค่าเป็น null ให้ใช้ข้อมูลอย่างอื่นแทนค่าของตัวแปร
+    // เรียกว่าค่าดีฟอลต์ NullableVar ?: Default
+    // NullableVar ตัวแปรที่มีโอกาสเป็น null ได้
+
+    val a: Int? = null
+    val x = a ?: 0 // หาก a เป็น null ตัวแปร x จะเท่ากับ 0
+    // หากไม่เป็น null ตัวแปร x = a
+    println(x)
+    /*
+    * เทียบเท่ากับ
+    * val x = if (a != null) a else 0
+    *
+    * */
+
+    val b: Double? = 1.23
+    val y = b ?: -1.0
+    println(y)
 
     print("Enter number >>")
-    val str: String? = readln()
-    if (str != null) {
-        val n: Double? = str.toDoubleOrNull()
-        if (n !== null) {
-            print("n = $n")
-        } else {
-            print("Error! can't convert to a number")
-        }
-    } else {
-        print("Error!")
-    }
+    val input: String? = readLine()
+    val str = input ?: ""
+
+    val n1: Int? = 10
+    val n2: Int? = null
+    val n: Int
+    n = (n1 ?: 0) + (n2 ?: -1)
+    // n = 10 + (-1) = 9 เพราะ n2 มีค่าเป็น null
+
+    val m = ("123".toIntOrNull() ?: 0) * 100
+    println(m)
+
+    val msg: String? = readLine()
+    println(msg ?: "Error")
 
 }
