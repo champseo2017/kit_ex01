@@ -2,13 +2,13 @@ import java.awt.Shape
 
 /*
 
-    การใช้ฟังก์ชัน ?.let {}
-    - กำหนดสิ่งที่จะดำเนินการ หากตัวแปรไม่มีค่าเป็น null
-     ใช้ ฟังก์ชัน let โดยเรียกผ่านตัวแปรที่ทำการตรวจสอบด้วยโอเปอเรเตอร์
-     Safe Call (?.) แล้วกำหนดการกระทำไว้ในบล็อก {}
+    การใช้วิธี Not Null Assertion Operator
+    - ถ้ามั่นใจว่าตัวแปรไม่เป็น null อย่างแน่นอน สามารถจัดการด้วยโอเปอเรเตอร์
+      Not Null Assertion (!!) แต่ต้องมั่นใจจริงๆ ว่าไม่เป็น null
+      มิฉะนั้นอาจเกิดข้อผิดพลาดได้
 
-     - let มีพารามิเตอร์เป็น functions Type ฟังก์ชั่นนี้จึงเป็นแบบแลมบ์ดา
-       สามารถนำพารามิเตอร์ it มาใช้แทนตัวแปรได้ รวมถึงไม่ต้องใช้คำสั่ง return
+     - วางตัวแปร !! ไว้หลังตัวแปรแบบ Nullable สามารถใช้งานได้เหมือนกับตัวแปรทั่วไปได้เลย
+     ไม่ต้องตรวจสอบอีก
 
 
 * */
@@ -16,30 +16,15 @@ import java.awt.Shape
 
 fun main(args: Array<String>) {
 
-//    print("Please enter string >>")
-//    val str: String? = readLine()
-//
-//    str?.let {
-//        print("string => $str")
-//    }
+  val a: Int? = 10
+  val b: Int? = 20
+  val c: Int = a!! + b!!
 
-    /*
-    * เทียบเท่ากับการตรวจสอบ if เช่น
-    * if (str !== null) {
-    *  print("string => $str")
-    * }
-    *
-    * */
-
-    print("Please enter website >>")
-    val str: String? = readLine()
-    val url = str?.let {
-        "https//$str"
-    }
-
-    // คำสั่งในบล็อกของ let จะถูกดำเนินการเมื่อตัวแปร str ไม่เป็น null
-
-    println(url ?: "")
+  // ใช้โอเปอเรเตอร์ !! ร่วมกับ . ในการเรียกเมธอดของตัวแปรนั้นแทนการใช้ ?. Safe
+  // Call เช่น
+  val str: String? = "123"
+  val x: Int = str!!.toInt()
+  println(x)
 
 
 }
