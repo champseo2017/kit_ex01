@@ -37,6 +37,8 @@ fun main(args: Array<String>) {
         "https//$str"
     }
 
+    // คำสั่งในบล็อกของ let จะถูกดำเนินการเมื่อตัวแปร str ไม่เป็น null
+
     println(url ?: "")
 
 
