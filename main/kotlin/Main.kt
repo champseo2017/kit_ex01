@@ -2,29 +2,41 @@ import java.awt.Shape
 
 /*
 
-    การใช้วิธี Not Null Assertion Operator
-    - ถ้ามั่นใจว่าตัวแปรไม่เป็น null อย่างแน่นอน สามารถจัดการด้วยโอเปอเรเตอร์
-      Not Null Assertion (!!) แต่ต้องมั่นใจจริงๆ ว่าไม่เป็น null
-      มิฉะนั้นอาจเกิดข้อผิดพลาดได้
-
-     - วางตัวแปร !! ไว้หลังตัวแปรแบบ Nullable สามารถใช้งานได้เหมือนกับตัวแปรทั่วไปได้เลย
-     ไม่ต้องตรวจสอบอีก
+    ฟังค์ชันที่ส่งค่ากลับแบบ Nullable
+    - ที่ตัวฟังก์ชัน ให้วางเครื่องหมาย ? ต่อท้ายชนิดข้อมูลผลลัพธ์ที่จะส่งกลับ
+    - ในฟังก์ชัน ถ้ามีกรณีที่จะส่งค่า null ก็ใช้คำสั่ง return null ตามปกติ
+    - ส่วนที่เรียกใช้ฟังก์ชันวางเครื่องหมาย ? ต่อท้ายตัวแปร
+    - จะนำตัวแปรที่รับค่าจากฟังก์ชันไปใช้ ต้องจัดการด้วยวิธี Null Safety
 
 
 * */
 
+fun thaiMonth(month: Int) : String? {
+    val thaiMonths = arrayOf("มกราคม")
+    if (month in 1..12) {
+        return thaiMonths[month - 1]
+    } else {
+        return null
+    }
+}
+
 
 fun main(args: Array<String>) {
 
-  val a: Int? = 10
-  val b: Int? = 20
-  val c: Int = a!! + b!!
+    val a: String? = thaiMonth(month = 1)
+    if (a != null) {
+        print(a)
+    } else {
+        print("Error")
+    }
 
-  // ใช้โอเปอเรเตอร์ !! ร่วมกับ . ในการเรียกเมธอดของตัวแปรนั้นแทนการใช้ ?. Safe
-  // Call เช่น
-  val str: String? = "123"
-  val x: Int = str!!.toInt()
-  println(x)
+    val b = thaiMonth(month = 13) ?: "Error"
+    println(b)
+
+    val c = thaiMonth(month = 1)
+    c?.let {
+        print(it) // let แลมบ์ดา สามารถอ้างถึง it แทนพารามเตอร์
+    }
 
 
 }
