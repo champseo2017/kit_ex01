@@ -1,54 +1,39 @@
 import kotlin.random.*
 /*
+    การใช้คำสั่ง throw
+    - เป็นการส่งต่อข้อผิดพลาดไปให้ส่วนอื่นจัดการแทนได้
+    โดยสร้าง Exception ที่เป็นของเราเอง ณ จุดที่เกิดเหตุ
+    แล้วส่งออกไปโดยใช้คำสั่ง throw
 
-    การใช้คำสั่ง finally
-    - คำสั่ง finally ใช้กำหนดบล็อกที่จะดำเนินการเสมอ ไม่ว่าจะเกิดข้อผิดพลาดหรือไม่ก็ตาม
-    จะวางบล็อก finally ไว้ถัดจากบล็อก catch
-
-    try {
-    } catch (...) {
-    } finally {
-      // ทำเสมอไม่ว่าจะเกิดข้อผิดพลาดไหม
+    if (y == 0) {
+     throw Exception("ตัวหารเป็นศูนย์ไม่ได้")
     }
 
-    สามารถใช้แค่ try กับ finally โดยตัดบล็อก catch ออกไป
     try {
-      ...
-    } finally {
-      ...
-    }
-
-    val bytes = Random.nextBytes(1)
-    val b = bytes[0]
-    try {
-        val array = IntArray(b.toInt())
+        val y = 0
+        if (y == 0) {
+            throw Exception("ตัวหารเป็น 0 ไม่ได้")
+        }
     } catch (ex: Exception) {
-        println("Error")
-    } finally {
-        print("เลขที่สุ่มได้คือ: $b")
-        // ดำเนินการเสมอ
+        print(ex.message)
     }
-
-    นำ try-catch-finally ไปใช้แบบ Expression
-     - คำสั่งใน finally จะไม่มีผลใดๆ
-     - ไม่ควรใช้ finally ร่วมด้วย
-
-
-
 
 * */
 
 fun main(args: Array<String>) {
 
-    val bytes = Random.nextBytes(1)
-    val b = bytes[0]
     try {
-        val array = IntArray(b.toInt())
-    } finally {
-        print("เลขที่สุ่มได้คือ: $b")
+        test() // ต้องเรียกฟังก์ชันที่โยนข้อผิดพลาดในบล็อก try
+    } catch (ex: Exception) { // ข้อผิดพลาดถูกส่งต่อมาที่นี้
+        print(ex.message)
     }
+
 
 }
 
-
-
+fun test() {
+    val y = 0
+    if (y == 0) {
+        throw Exception("ตัวหารเป็น 0 ไม่ได้")
+    }
+}
