@@ -1,30 +1,52 @@
-
+import kotlin.random.*
 /*
 
-    การใช้ try-catch ในแบบ Expression
-     - ใช้ในลักษณะ Expression การคืนค่าให้กับตัวแปร หรือ ฟังก์ชัน
+    การใช้คำสั่ง finally
+    - คำสั่ง finally ใช้กำหนดบล็อกที่จะดำเนินการเสมอ ไม่ว่าจะเกิดข้อผิดพลาดหรือไม่ก็ตาม
+    จะวางบล็อก finally ไว้ถัดจากบล็อก catch
 
-     fun isValidDate(day: Int, month: Int, year: Int): Boolean {
-    return try {
-        LocalDate.of(year, month, day)
-    } catch (ex: Exception) {
-        false
+    try {
+    } catch (...) {
+    } finally {
+      // ทำเสมอไม่ว่าจะเกิดข้อผิดพลาดไหม
     }
-}
+
+    สามารถใช้แค่ try กับ finally โดยตัดบล็อก catch ออกไป
+    try {
+      ...
+    } finally {
+      ...
+    }
+
+    val bytes = Random.nextBytes(1)
+    val b = bytes[0]
+    try {
+        val array = IntArray(b.toInt())
+    } catch (ex: Exception) {
+        println("Error")
+    } finally {
+        print("เลขที่สุ่มได้คือ: $b")
+        // ดำเนินการเสมอ
+    }
+
+    นำ try-catch-finally ไปใช้แบบ Expression
+     - คำสั่งใน finally จะไม่มีผลใดๆ
+     - ไม่ควรใช้ finally ร่วมด้วย
+
+
+
 
 * */
 
 fun main(args: Array<String>) {
 
-    print("กรุณาใส่ตัวเลขจำนวนเต็ม >>")
-    var str: String? = readLine()
-    var n: Int = try {
-        str!!.toInt()
-    } catch (ex: Exception) {
-        0 // เกิดข้อผิดพลาดส่ง 0 กลับไป
+    val bytes = Random.nextBytes(1)
+    val b = bytes[0]
+    try {
+        val array = IntArray(b.toInt())
+    } finally {
+        print("เลขที่สุ่มได้คือ: $b")
     }
-    println(n)
-
 
 }
 
