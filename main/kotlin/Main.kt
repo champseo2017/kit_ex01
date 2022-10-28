@@ -1,42 +1,80 @@
-import java.awt.Shape
 
 /*
 
-    ฟังค์ชันที่ส่งค่ากลับแบบ Nullable
-    - ที่ตัวฟังก์ชัน ให้วางเครื่องหมาย ? ต่อท้ายชนิดข้อมูลผลลัพธ์ที่จะส่งกลับ
-    - ในฟังก์ชัน ถ้ามีกรณีที่จะส่งค่า null ก็ใช้คำสั่ง return null ตามปกติ
-    - ส่วนที่เรียกใช้ฟังก์ชันวางเครื่องหมาย ? ต่อท้ายตัวแปร
-    - จะนำตัวแปรที่รับค่าจากฟังก์ชันไปใช้ ต้องจัดการด้วยวิธี Null Safety
+    การตรวจสอบข้อผิดพลาดด้วย try-catch
+
+    try {
+     // ช่วงที่ต้องการตรวจสอบข้อผิดพลาด
+    } catch (ตัวแปร:ชนิดข้อผิดพลาด) {
+      // การกระทำถ้าเกิดข้อผิดพลาด
+    }
+
+    print("กรุณาใส่ตัวเลขจำนวนเต็ม >>")
+
+    try {
+        val str: String? = readln()
+        val n = str?.toInt()
+        println("เลขที่กำหนดคือ $n")
+    } catch (ex: Exception) {
+        println("เกิดข้อผิดพลาด")
+    }
+
+    1. ใช้ try-catch ไว้ในลูป while หรือ do-while หากมีข้อผิดพลาดเกิดขึ้นให้
+    วนลูปต่อไปเรื่อยๆ จนกว่าจะไม่มีข้อผิดพลาด
+
+    2. เรียกใช้เมธอดแบบ Recursion
+
+    หากต้องการแสดงข้อมูลของข้อผิดพลาดที่เกิดขึ้น
+     - message ข้อความที่เป็นสาเหตุของข้อผิดพลาด
+     - toString() ข้อความพร้อมคลาสที่เป็นสาเหตุของข้อผิดพลาด
+     - printStackTrace()
+       - พิมพ์รายละเอียดทั้งหมด
+
+     การใช้งาน
+     try {
+     } catch (ex: Exception) {
+       println(ex.message)
+       println(ex.toString())
+       ex.printStackTrace()
+     }
 
 
 * */
 
-fun thaiMonth(month: Int) : String? {
-    val thaiMonths = arrayOf("มกราคม")
-    if (month in 1..12) {
-        return thaiMonths[month - 1]
-    } else {
-        return null
-    }
-}
-
-
 fun main(args: Array<String>) {
 
-    val a: String? = thaiMonth(month = 1)
-    if (a != null) {
-        print(a)
-    } else {
-        print("Error")
+//    var i = getInt()
+//    println(i)
+
+    var d = getDouble()
+    println("Hello")
+
+}
+
+fun getInt(): Int { // Recursion
+    var str: String?
+    var n: Int = 0
+    print("กรุณาใส่ตัวเลขจำนวนเต็ม >>")
+    try {
+        str = readln()
+        n = str!!.toInt()
+    } catch (ex: Exception) {
+        getInt() // เรียกฟังก์ชันตัวเองขึ้นมาทำงานแบบ Recursion
     }
+    return n
+}
 
-    val b = thaiMonth(month = 13) ?: "Error"
-    println(b)
+fun getDouble(): Double {
+    var str: String?
+    var num: Double
+    do {
+        try {
+            print("กรุณาใส่ตัวเลข >>")
+            str = readln()
+            num = str!!.toDouble()
+            break // จะออกจากลูป
+        } catch (ex: Exception) {}
+    } while (true)
 
-    val c = thaiMonth(month = 1)
-    c?.let {
-        print(it) // let แลมบ์ดา สามารถอ้างถึง it แทนพารามเตอร์
-    }
-
-
+    return num
 }
