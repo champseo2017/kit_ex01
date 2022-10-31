@@ -1,30 +1,27 @@
 import kotlin.random.*
 
 /*
-  การสร้างคลาสและอินสแตนซ์
+  เมธอดของคลาส
 
-  class ชื่อคลาส {
-   สมาชิกของคลาส (เมธอดและพร็อปเพอร์ตี้)
-  }
-
-  การนำคลาสไปใช้งาน ต้องสร้างอินสแตนซ์ (Instance) หรือ ออบเจ็กต์ (Object)
-  ของมันขึ้นมาก่อน เพื่อใช้ในการอ้างถึงสมาชิกของคลาส
-
-  var person: Person
-  person = Person()
-
-  val bkAcc: BankAccount = BankAccount()
-  val thDate: ThaiDate = ThaiDate()
-
-  หรือ ใช้รูปแบบ Type Inference เช่น
-  var person = Person()
-  val bkAcc = BankAccount()
-  val thDate = ThaiDate()
-
-  ไม่ต้องใช้คำสั่ง new
 
 * */
 
-fun main(args: Array<String>) {
+class Calculator {
+    fun add(n1: Double, n2: Double): Double {
+        return n1 + n2
+    }
+    fun subtract(n1: Int, n2: Int) = n1 - n2
+    fun subtract(n1: Double, n2: Double) = n1 - n2 // Overload
 
+    fun cal(n1: Double, n2: Double, action:(Double, Double)
+     -> Double) : Double {
+        return action(n1, n2)
+    }
+}
+
+fun main(args: Array<String>) {
+   val c = Calculator()
+   val x = c.add(10.1, 20.1)
+   val y = c.subtract(n1=2, n2=50)
+   val z = c.cal(30.0, 5.0) { a, b -> a * b }
 }
