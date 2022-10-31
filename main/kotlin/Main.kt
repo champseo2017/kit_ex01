@@ -1,39 +1,30 @@
 import kotlin.random.*
+
 /*
-    การใช้คำสั่ง throw
-    - เป็นการส่งต่อข้อผิดพลาดไปให้ส่วนอื่นจัดการแทนได้
-    โดยสร้าง Exception ที่เป็นของเราเอง ณ จุดที่เกิดเหตุ
-    แล้วส่งออกไปโดยใช้คำสั่ง throw
+  การสร้างคลาสและอินสแตนซ์
 
-    if (y == 0) {
-     throw Exception("ตัวหารเป็นศูนย์ไม่ได้")
-    }
+  class ชื่อคลาส {
+   สมาชิกของคลาส (เมธอดและพร็อปเพอร์ตี้)
+  }
 
-    try {
-        val y = 0
-        if (y == 0) {
-            throw Exception("ตัวหารเป็น 0 ไม่ได้")
-        }
-    } catch (ex: Exception) {
-        print(ex.message)
-    }
+  การนำคลาสไปใช้งาน ต้องสร้างอินสแตนซ์ (Instance) หรือ ออบเจ็กต์ (Object)
+  ของมันขึ้นมาก่อน เพื่อใช้ในการอ้างถึงสมาชิกของคลาส
+
+  var person: Person
+  person = Person()
+
+  val bkAcc: BankAccount = BankAccount()
+  val thDate: ThaiDate = ThaiDate()
+
+  หรือ ใช้รูปแบบ Type Inference เช่น
+  var person = Person()
+  val bkAcc = BankAccount()
+  val thDate = ThaiDate()
+
+  ไม่ต้องใช้คำสั่ง new
 
 * */
 
 fun main(args: Array<String>) {
 
-    try {
-        test() // ต้องเรียกฟังก์ชันที่โยนข้อผิดพลาดในบล็อก try
-    } catch (ex: Exception) { // ข้อผิดพลาดถูกส่งต่อมาที่นี้
-        print(ex.message)
-    }
-
-
-}
-
-fun test() {
-    val y = 0
-    if (y == 0) {
-        throw Exception("ตัวหารเป็น 0 ไม่ได้")
-    }
 }
