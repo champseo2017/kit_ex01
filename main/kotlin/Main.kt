@@ -2,71 +2,40 @@ import kotlin.random.*
 
 /*
 
-    บล็อก get/set และ Backing Field
-     - ดำเนินการบางอย่างเมื่อกำหนด หรือ อ่านค่าพร็อปเพอร์ตี้
-       - การตรวจสอบข้อมูลที่รับเข้ามาก่อนจัดเก็บ
-       - หรือ การประมวลผลบางอย่างก่อนจะส่งค่ากลับออกไป
-       - ให้เพิ่มบล็อกต่อท้ายพร็อปเพอร์ตี้ดังนี้
-         - บล็อก set {} สำหรับนำค่าจากภายนอกเข้ามาในคลาส
-         - บล็อก get {} สำหรับส่งค่าออกไปยังภายนอกคลาส
+    คอนสตรักเตอร์ของคลาส
+     - เป็นการจัดเตรียมข้อมูลที่จำเป็นต่อการทำงานเริ่มแรกของคลาส
+     เช่น คลาส Circle คอนสตรักเตอร์จะถูกเรียกเมื่อเราสร้างอินสแตนซ์ของ
+     คลาสนั้น
 
-       - บล็อก get/set อาจมีเพียงอย่างใดอย่างหนึ่ง เช่น มีเฉพาะ get
-       เป็นต้น
-       - บล็อก get/set จะไม่เก็บข้อมูลไว้กับมันโดยตรง มักใช้เพื่อเชื่อมโยง
-       กับพร็อปเพอร์ตี้อื่น (Compute Property)
+      - Primary Constructor แบบพร็อปเพอร์ตี้
+        - รับข้อมูลเข้ามาในคลาสด้วยรูปแบบพร็อปเพอร์ตี้ เขียนไว้ที่
+        ส่วนหัวของคลาส Header คล้ายพารามิเตอร์ของฟังก์ชัน
+         - ต้องระบุคีย์เวิร์ด var หรือ val ด้วย
 
-       - เช่น พร็อปเพอร์ตี้ formatBalance จะใช้ข้อมูลจากพร็อปเพอร์ตี้ balance
-
-       class BankAccount {
-         var balance: Double = 0.0
-         val formatBalance: String // ไม่ต้องกำหนดค่าเริ่มต้น เพราะไม่เก็บข้อมูล
-           get() {
-             val f = java.text.DecimalFormat("#,###.00")
-             return f.format(balance)
-           }
+       class Circle(var radius: Int) {
        }
 
-       - พร็อปเพอร์ตี้ที่มีบล็อก get/set สามารถเก็บข้อมูลได้ แก้ปัญหาด้วยการสร้าง
-       Backing Field
-        - กำหนดค่าเริ่มต้นให้กับพร็อปเพอร์ตี้ตามปกติ
-        - ภายในบล็อก get/set ให้อ้างถึง Backing Field ด้วยตัวแปรพิเศษชื่อว่า field
+       - ข้อมูลจะถูกจัดเก็บในพร็อปเพอร์ตี้เหล่านั้นโดยตรง ไม่จำเป็นต้องสร้างพร็อปเพอร์ตี้
+       ขึ้นมาเก็บข้อมูลอีก
+
+       - สามารถอ้างถึงพร็อปเพอร์ตี้เหล่านี้ได้ทั้งถายในและภายนอกคลาส หรือ นำไปใช้งาน
+       ได้เหมือนกับพร็อปเพอร์ตี้แบบปกติ
+
+       - เมื่อสร้างอินสแตนซ์ของคลาส ต้องระบุค่าให้กับคอนสตรักเตอร์ในลักษณะเดียวกับอาณ์กิวเมนต์
+       ของฟังก์ชัน
+
 
 * */
 
-class BankAccount {
-    var accountName: String = "James Bond"
-    val accountNumber: String = "01-234567"
-    var depositType: String = "Saving"
-      get() = field // เมื่ออ่านค่าให้ส่งค่าจากฟิลด์กลับออกไป (ไม่มีก็ได้)
-      set(value) {
-          val t = arrayOf("Saving", "Fixed", "Current")
-          if (t.indexOf(value) != -1) {
-              field = value
-          }
-      }
-
-    var atmCode: String = "123456"
-        set(value) {
-            if (value.trim().length == 6) {
-                field = if (value.toIntOrNull() != null) value
-                else field
-            }
-        }
-
-    var balance: Double = 0.0
-        set(value) {
-            if (value > 0) {
-                field = value
-            }
-        }
-
-    val formatBalance: String
-        get() {
-            val f = java.text.DecimalFormat("#,###.00")
-            return f.format(balance)
-        }
+class Circle(var radius: Int, val PI: Double = 3.14159) {
+    fun getArea() = PI * radius * radius
+    fun getPerimeter() = 2 * PI * radius
 }
 
+
 fun main(args: Array<String>) {
+
+    val c1 = Circle(10)
+    println(c1.PI)
 
 }
