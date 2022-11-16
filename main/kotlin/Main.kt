@@ -2,46 +2,56 @@ import kotlin.random.*
 
 /*
 
-     พร็อปเพอร์ตี้แบบ lateinit
-     - เป็นการกำหนดค่าขึ้นมาก่อน ไม่สามารถใช้ได้กับ ชนิดข้อมูลพื้นฐาน
-     - ยกเว้นข้อมูลชนิด String
-     - ใช้ lateinit กับพร็อปเพอร์ตี้ที่มี Type เป็นคลาสชนิดใดชนิดหนึ่ง และต้อง
-     การสร้างอินสแตนซ์ของมันในภายหลังเมื่อต้องการใช้งาน
+    Companion Object
+    - เหมือนค่า static แต่ต้องเข้าถึงผ่านชื่อคลาสโดยตรง
+    ไม่สามารถเข้าถึงผ่าน อินสแตนซ์ของคลาสได้
+
+    class Circle {
+     companion object {
+         var PI: Double = 3.141
+         fun area(radius: Int) = PI * radius * radius
+         fun perimeter(radius: Int) = 2 * PI * radius
+     }
+ }
+
+ val a = Circle.area(10)
+   val b = Circle.perimeter(20)
+    // val c = Circle()
+    // val d = c.area(50) // Error เรียกผ่านอินสแตนซ์ไม่ได้
+
+
+    // ภายในคลาสเดียวกัน เมธอดที่กำหนดในบล็อก Companion Object จะเรียกได้เฉพาะสมาชิก
+    ใน Companion ด้วยกันเอง
+
+    // เมธอดนอกบล็อก Companion Object สามารถเรียกได้ทั้ง พร็อปเพอร์ตี้และ เมธอดใน
+    Companion Object
 
 * */
 
- class Circle(private var radius: Double) {
-     fun perimeter(): Double {
-         return 3.14 * radius * radius
-     }
- }
 
- class Rectangle(private var width: Double,
- private var height: Double) {
-     fun area(): Double {
-         return width * height
-     }
- }
+class Circle(var radius: Int) {
+    var PI: Double = 3.141
 
- class Shape {
-     private lateinit var circle: Circle
-     private lateinit var rect: Rectangle
-     fun circlePerimeter(radius: Double): Double {
-         circle = Circle(radius)
-         return circle.perimeter()
-     }
-     fun rectArea(width: Double, height: Double): Double {
-         rect = Rectangle(width, height)
-         return rect.area()
-     }
- }
+    companion object {
+        val className: String = "Circle"
+        // fun area() = PI * radius * radius
+        // เกิด Error เพราะเรียกใช้พร็อปเพอร์ตี้ PI และ radius
+        // ซึ้งไม่ใช้ Companion Object
+//        fun perimeter(r: Int) : Double {
+//            r = checkValue(r) // Error
+//            return 2 * PI * r
+        // Error เรียกเมธอด checkValue() ซึ้งไม่ใช้ Companion Object
+//        }
+    }
+    private fun checkValue(v: Int) : Int {
+        return if (v > 0) v else 0
+    }
+
+    fun getClassName(): String = className // Ok
+    // เมธอดที่ไม่ใช้ Companion Object สามารถเรียกใช้ Companion Object ได้
+}
+
 
 fun main(args: Array<String>) {
-
-   val shape = Shape()
-   println(shape.circlePerimeter(10.0))
-    // อินสแตนซ์ของ Circle ถูกสร้างขึ้น
-   println(shape.rectArea(10.0, 20.0))
-   // อินสแตนซ์ของ Rectangle ถูกสร้างขึ้น
 
 }
