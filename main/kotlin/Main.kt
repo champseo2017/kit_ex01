@@ -2,56 +2,94 @@ import kotlin.random.*
 
 /*
 
-    Companion Object
-    - เหมือนค่า static แต่ต้องเข้าถึงผ่านชื่อคลาสโดยตรง
-    ไม่สามารถเข้าถึงผ่าน อินสแตนซ์ของคลาสได้
+    Enum Class
+    - ไม่สามารถกำหนดชื่อสมาชิกเป็นภาษาไทยได้
+    ยกเว้นจะกำหนดเป็นค่า Value ของสมาชิกแต่ละตัว
 
-    class Circle {
-     companion object {
-         var PI: Double = 3.141
-         fun area(radius: Int) = PI * radius * radius
-         fun perimeter(radius: Int) = 2 * PI * radius
-     }
- }
+    - ชื่อของ Enum นิยมตั้งเป็นตัวใหญ่
 
- val a = Circle.area(10)
-   val b = Circle.perimeter(20)
-    // val c = Circle()
-    // val d = c.area(50) // Error เรียกผ่านอินสแตนซ์ไม่ได้
+    - การกำหนดค่าค่า enum ให้แก่ตัวแปร ควรเป็น type enum
 
+    - enum จะเป็นตัวเลขหรือ สตริง ไม่ต้องเขียนใน ""
 
-    // ภายในคลาสเดียวกัน เมธอดที่กำหนดในบล็อก Companion Object จะเรียกได้เฉพาะสมาชิก
-    ใน Companion ด้วยกันเอง
+    enum class ชื่อ {
+     สมาชิกตัวที่ 1,
+     สมาชิกตัวที่ 2,
+    }
 
-    // เมธอดนอกบล็อก Companion Object สามารถเรียกได้ทั้ง พร็อปเพอร์ตี้และ เมธอดใน
-    Companion Object
+    - กำหนด value ให้กับ Enum
+      - ระบุ Primary Constructor ในแบบพร็อเพอร์ตี้
 
 * */
 
-
-class Circle(var radius: Int) {
-    var PI: Double = 3.141
-
-    companion object {
-        val className: String = "Circle"
-        // fun area() = PI * radius * radius
-        // เกิด Error เพราะเรียกใช้พร็อปเพอร์ตี้ PI และ radius
-        // ซึ้งไม่ใช้ Companion Object
-//        fun perimeter(r: Int) : Double {
-//            r = checkValue(r) // Error
-//            return 2 * PI * r
-        // Error เรียกเมธอด checkValue() ซึ้งไม่ใช้ Companion Object
-//        }
-    }
-    private fun checkValue(v: Int) : Int {
-        return if (v > 0) v else 0
-    }
-
-    fun getClassName(): String = className // Ok
-    // เมธอดที่ไม่ใช้ Companion Object สามารถเรียกใช้ Companion Object ได้
+enum class Direction {
+    NORTH, EAST, SOUTH, WEST
 }
 
+enum class DayOfWeek {
+    SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+    THURSDAY, FRIDAY, SATURDAY
+}
+
+enum class MobileOS {
+    ANDROID, IOS
+}
+
+enum class Storage {
+    GB16, GB32, GB64, GB128, GB256, GB512
+}
+
+class Device {
+    private var os: MobileOS = MobileOS.ANDROID
+    var storage: Storage = Storage.GB64
+
+    fun setOS(os: MobileOS) {
+        this.os = os
+    }
+
+    fun getOS(): MobileOS = this.os
+}
 
 fun main(args: Array<String>) {
 
+    var dw: DayOfWeek
+    dw = DayOfWeek.SATURDAY
+    dw = DayOfWeek.FRIDAY
+
+    val birthday = DayOfWeek.WEDNESDAY
+    var today = DayOfWeek.MONDAY
+
+    if (today == DayOfWeek.FRIDAY) {
+        val tomorrow = DayOfWeek.SATURDAY
+    }
+
+    println(when (today) {
+        DayOfWeek.FRIDAY -> "วันศุกร์"
+        else -> "วันอื่น"
+    })
+
+    val dv = Device()
+    dv.storage = Storage.GB128
+    dv.setOS(MobileOS.IOS)
+    println(dv.getOS())
+    // dv.setOS(MobileOS.DOS) // Error เพราะไม่ใช้สมชิกของ MobileOS
+
+    var gen = Gender.FEMALE.value // หญิง
+    Gender.SHEMALE.value = "กระเทย"
+    // ระบุคอสสตรักเตอร์เป็น var จึงเปลียนค่าได้
+
+    println("ถ้าชนะ จะได้ ${Result.WON.value} คะแนน")
+    var score = 0
+    val r: Result = Result.DRAWN
+    score += r.value
+
+}
+
+// enum ในแบบมี value
+enum class Gender (var value: String) {
+    MALE ("ชาย"), FEMALE ("หญิง"), SHEMALE ("เพศที่สาม")
+}
+
+enum class Result(val value: Byte) {
+    WON (3), DRAWN (1), LOST (0)
 }
