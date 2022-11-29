@@ -1,41 +1,42 @@
 import kotlin.random.*
 
 /*
-    กรณีที่ superclass มีทั้ง primary และ secondary constructor
 
-    - ถ้าคลาสมีคอนสตรักเตอร์มากกว่า 1 อัน เมื่อสร้างอินสแตนซ์ของมันต้องกำหนด
-    พารมมิเตอร์ให้ตรงรูปแบบของคอนสตรักเตอร์อันใดอันหนึ่งของคลาส ที่ subclass
-    ต้องมีพารามิเตอร์แบบ Primary หรือ Secondary อย่างน้อย 1 อันที่สามารถส่งข้อมูล
-    ที่สอดคล้องกันให้แก่คอนสตรักเตอร์อันใดอันหนึ่งของ superclass
+  การสร้างคอนสตรักเตอร์เพิ่มเติมให้แก่ Subclass
+  หากคอนสตรักเตอร์ที่มีใน Superclass ไม่สอดคล้องหรือไม่เพียงพอต่อการทำงานของ
+  subclass ก็สามารถเพิ่มเข้าไปอีกได้เช่นเดียวกับพร็อปเพอร์ตี้หรือเมธอด
 
-    - สรุปส่งข้อมูลจาก subclass ไปยัง superclass อาจส่งจากคอนสตรักเตอร์แบบใด
-    แบบหนึ่งก็ได้ระหว่าง Primary และ Secondary
+  - ใช้ this() เพื่อกำหนดค่าให้แก่ primary constructor ของคลาสตัวมันเอง
+  หากไม่ระบุค่าล่วงหน้าให้แก่พร็อปเพอร์ตี้ ต้องนำค่าจากคอนสตรักเตอร์มากำหนดให้กับมัน
 
 * */
 
- open class Device(var os: String) {
-     constructor(os: String, brandName: String) : this(os) {}
- }
+ open class Device(var os: String)
 
  class Tablet(var osName: String) : Device(osName) {
-     // ส่งข้อมูลแบบ Primary ของคลาส Device
- }
+     constructor(os: String, brandName: String) : this(os) {
 
- class Smartphone(var osName: String, var brandName: String) :
-     Device(osName, brandName) {
-    // ส่งข้อมูลให้แก่คอนสตรักเตอร์แบบ Secondary ของคลาส Device
- }
-
- class Phablet : Device {
-     constructor(osName: String, brandName: String) : super(osName) {
-         // ส่งแบบ Primary ของคลาส Device
      }
  }
 
- class Watch : Device {
-     constructor(osName: String, brandName: String)
-             : super(osName, brandName) {
-        // ส่งข้อมูลในแบบ secondary ของคลาส device
+ class Smartphone(var osName: String) : Device(osName) {
+     constructor(osName: String, brandName: String) : this(osName) {
+
+     }
+
+     constructor(osName: String, osVersion: Double, brandName: String)
+             : this(osName) {
+
+             }
+ }
+
+ open class Computer
+
+ class NoteBook(var brand: String) : Computer() {
+     private var model = ""
+     constructor(brand: String, model: String, processsor: String,
+     memory: Int, display: Double) : this(brand) {
+         this.model = model
      }
  }
 
