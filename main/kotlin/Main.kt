@@ -2,43 +2,44 @@ import kotlin.random.*
 
 /*
 
-   โมดิฟายเออร์ private และ protected
-   - โมดิฟายเออร์ private ใช้ป้องกันการเข้าถึงสมาชิกจากภายนอกคลาส
-   - โมดิฟายเออร์ private จะไม่ถูกสืบทอดมายัง Subclass จึงไม่สามารถโอเวอร์ไรด์ได้
-   - โมดิฟายเออร์ protected มีการสืบทอดมายัง Subclass ตามปกติ แต่สามารถเข้าถึงได้
-   เฉพาะจาก Subclass ของมันเอง หรือ คลาสที่ไม่อยู่ในลำดับชั้นการสืบทอด จะเข้าถึงสมาชิกที่มี
-   โมดิฟายเออร์แบบ protected ไม่ได้
+   Abstract Class
+   - ไม่กำหนดวิธีการทำงาน ให้ subclass ไปกำหนดวิธีการทำงานเพิ่มเติมเอาเอง
+   - ระบุคีย์เวิร์ด abstract ไว้ก่อนคำว่า class เสมอ คลาสประเภทนี้สามารถสืบทอด
+   ได้โดยปริยาย เช่น abstract class Test
+   - ภายในคลาส มีสมาชิกแบบปกติ คือ พร็อปเพอร์ตี้ที่ระบุค่าเริ่มต้น หรือ เมธอดที่กำหนด
+   วิธีทำงานให้กับมันเรียบร้อยแล้ว รวมทั้งสมาชิกแบบ Abstract
+     - สมาชิกแบบ Abstract ระบุคีย์เวิร์ด val/val หรือ fun ไม่ต้องมี โมดิฟายเออร์ open
+     สมาชิกประเภทนี้ต้องถูกโอเวอร์ไรด์ได้อยู่แล้ว
+     - สมาชิกแบบ Abstract เป็นพร็อปเพอร์ตี้ ไม่ต้องกำหนดค่าให้กับมัน หากเป็นเมธอด
+     ไม่ต้องกำหนดวิธีการทำงานให้กับมัน
+
+    - ไม่สามารถสร้างอินสแตนซ์ของคลาสที่เป็น Abstract ได้ ต้องสืบทอดแล้วใช้งานผ่าน Subclass
+    ต้องโอเวอร์ไรด์สมาชิกที่เป็น Abstract ให้ครบทั้งหมด
 
 * */
 
-open class Demo {
-    protected var p1: Int = 0
-    protected open var p2: Double = 0.0
+abstract class Shape3D {
+    abstract val PI: Double
+    private var color: String? = null
 
-    private fun m1() {}
-    protected open fun m2() {}
+    abstract fun surfaceArea(): Int // Abstract Method
+    abstract fun volume() : Int
+    fun shapeName() : String = this.javaClass.name
 }
 
-class Dummy: Demo() {
-    override var p2 = p1 + 0.5 // protected สามารถสืบทอดมายัง Subclass ได้
-    fun m1() {} // private ไม่สามารถสืบทอดมายัง Subclass ได้ จึงเป็นการสร้าง fun ใหม่
-    // ไม่ใช้การ override
-    override fun m2() {} // protected สามารถสืบทอดมายัง Subclass ได้
+class Box (var w: Int, var l: Int, var h: Int) : Shape3D() {
+    override var PI = 3.14
+    override fun volume() : Int = w * l * h
+    override fun surfaceArea() = (w * l * 2) + (w * h * 2) +
+            (l * h * 2)
 }
 
-class Test {
-    fun m() {
-        val d = Dummy()
-        d.m1()
-        d.m2() // Error class Test
-        // ไม่อยู่ในลำดับการสืบทอด m2 มีโมดิฟายเออร์ protected จาก class Demo
-        print(d.p2) // Error class Test
-        // ไม่อยู่ในลำดับการสืบทอด m2 มีโมดิฟายเออร์ protected จาก class Demo
-    }
-}
 
 fun main(args: Array<String>) {
 
-
+   val b = Box(10, 20, 30)
+   println(b.shapeName())
+   println(b.volume())
+   // val shape = Shape3D() // Error ใช้งาน Abstract class โดยตรงไม่ได้
 
 }
