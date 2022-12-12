@@ -2,44 +2,40 @@ import kotlin.random.*
 
 /*
 
-   Abstract Class
-   - ไม่กำหนดวิธีการทำงาน ให้ subclass ไปกำหนดวิธีการทำงานเพิ่มเติมเอาเอง
-   - ระบุคีย์เวิร์ด abstract ไว้ก่อนคำว่า class เสมอ คลาสประเภทนี้สามารถสืบทอด
-   ได้โดยปริยาย เช่น abstract class Test
-   - ภายในคลาส มีสมาชิกแบบปกติ คือ พร็อปเพอร์ตี้ที่ระบุค่าเริ่มต้น หรือ เมธอดที่กำหนด
-   วิธีทำงานให้กับมันเรียบร้อยแล้ว รวมทั้งสมาชิกแบบ Abstract
-     - สมาชิกแบบ Abstract ระบุคีย์เวิร์ด val/val หรือ fun ไม่ต้องมี โมดิฟายเออร์ open
-     สมาชิกประเภทนี้ต้องถูกโอเวอร์ไรด์ได้อยู่แล้ว
-     - สมาชิกแบบ Abstract เป็นพร็อปเพอร์ตี้ ไม่ต้องกำหนดค่าให้กับมัน หากเป็นเมธอด
-     ไม่ต้องกำหนดวิธีการทำงานให้กับมัน
+   การสร้างและใช้งานอินเทอร์เฟซ
+   - Interface เป็นการกำหนดลักษณะโครงสร้างที่อาจประกอบด้วย เมธอด
+   และ พร็อปเพอร์ตี้โดยไม่ได้ระบุค่า และ วิธีดำเนินการเอาไว้
+   เพื่อให้คลาสที่สืบทอดไปเป็นผู้กำหนดค่าและวิธีดำเนินการเอาเอง
 
-    - ไม่สามารถสร้างอินสแตนซ์ของคลาสที่เป็น Abstract ได้ ต้องสืบทอดแล้วใช้งานผ่าน Subclass
-    ต้องโอเวอร์ไรด์สมาชิกที่เป็น Abstract ให้ครบทั้งหมด
+   - การสร้างอินเทอร์เฟซ
+   interface ชื่ออินเทอร์เฟซ {
+     // สมาชิก
+   }
+   - ไม่ต้องระบุโมดิฟายเออร์ open เป็น open โดยอัตโนมัติ
+   - พร็อปเพอร์ตี้ห้ามกำหนดค่าเริ่มต้น
+   - เมธอด ไม่กำหนดวิธีการทำงานใดๆ หรือ จะ กำหนดวิธีการทำงาน
+
+   การติดตั้ง Android SDK เพิ่มเติม
+   - การติดตั้ง Android SDK เพื่อกำหนดให้แอปที่ผู้สร้างขึ้นมาสามารถไปติดตั้งบนระบบ
+   ปฏิบัติการ Android เวอร์ชันใดบ้าง
+   - ไม่จำเป็นต้องติดตั้ง Android SDK ทุกเวอร์ชัน เลือกติดตั้งอย่างน้อยที่สุด 2 เวอร์ชันคือ
+   เวอร์ชันน้อยที่สุด กับ เวอร์ชันมากที่สุด
+   - ปัจจุบัน Android SDK เวอร์ชั่นน้อยที่สุดที่ควรติดตั้งคือ Android SDK เวอร์ชั่น 8.0
+   - ถ้าติดตั้ง Android SDK เวอร์ชั่น 8.0 หมายความว่า แอปที่สร้างขึ้นมาสามารถติดตั้ง
+   บนนระบบปฏิบัติการ Android ตั้งแต่เวอร์ชั่น 8.0 ขึ้นไป
 
 * */
 
-abstract class Shape3D {
-    abstract val PI: Double
-    private var color: String? = null
-
-    abstract fun surfaceArea(): Int // Abstract Method
-    abstract fun volume() : Int
-    fun shapeName() : String = this.javaClass.name
-}
-
-class Box (var w: Int, var l: Int, var h: Int) : Shape3D() {
-    override var PI = 3.14
-    override fun volume() : Int = w * l * h
-    override fun surfaceArea() = (w * l * 2) + (w * h * 2) +
-            (l * h * 2)
+interface Shape3D {
+    val PI: Double // Abstract Property
+    fun surfaceArea(): Int // Abstract Method
+    fun volume(): Int
+    fun shapeName(): String = this.javaClass.name
 }
 
 
 fun main(args: Array<String>) {
 
-   val b = Box(10, 20, 30)
-   println(b.shapeName())
-   println(b.volume())
-   // val shape = Shape3D() // Error ใช้งาน Abstract class โดยตรงไม่ได้
+
 
 }
