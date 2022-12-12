@@ -17,6 +17,9 @@ import kotlin.random.*
 
    การสร้างโปรเจ็กต์ใน Android Studio แบบ Empty Activity
    - Empty Activity เป็นโปรเจ็กต์ที่มีโครงสร้างเพียง 1 หน้าจอ
+   - Minimum SDK กำหนดเวอร์ชันต่ำสุดของระบบปฏิบัติการ Android ที่สามารถติดตั้ง
+   แอปของเราได้
+   - Help me choose แสดงสัดส่วนอุปกรณ์ Android แยกตามเวอร์ชัน
 
 
 
