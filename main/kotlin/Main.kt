@@ -2,68 +2,74 @@ import kotlin.random.*
 
 /*
 
-   การสร้างและใช้งานอินเทอร์เฟซ
-   - Interface เป็นการกำหนดลักษณะโครงสร้างที่อาจประกอบด้วย เมธอด
-   และ พร็อปเพอร์ตี้โดยไม่ได้ระบุค่า และ วิธีดำเนินการเอาไว้
-   เพื่อให้คลาสที่สืบทอดไปเป็นผู้กำหนดค่าและวิธีดำเนินการเอาเอง
+   Object Expression
+   - หากต้องการนำอินเทอร์เฟซไปใช้งาน ต้องสร้างคลาสขึ้นมาสืบทอด ซึ้งอาจเกิดความ
+   ยุ่งยาก
+   - ลักษณะของ Object Expression คือใช้คีย์เวิร์ด object แทนคลาสที่จะสืบทอดจาก
+   อินเทอร์เฟซโดยไม่ต้องระบุชื่อในรูปแบบดังนี้
 
-   - การสร้างอินเทอร์เฟซ
-   interface ชื่ออินเทอร์เฟซ {
-     // สมาชิก
-   }
-   - ไม่ต้องระบุโมดิฟายเออร์ open เป็น open โดยอัตโนมัติ
-   - พร็อปเพอร์ตี้ห้ามกำหนดค่าเริ่มต้น
-   - เมธอด ไม่กำหนดวิธีการทำงานใดๆ หรือ จะ กำหนดวิธีการทำงาน
-   - อินเทอร์เฟซ สามารถสืบทอดจากอินเทอร์เฟซด้วยกันเองได้ แต่เมื่อจะนำไปใช้งาน
-   ต้องสืบทอด ด้วยคลาสเหมือนเดิม
-
-   interface Login {
-     var email: String
-     var password: String
+   object: interface_name {
+     // โอเวอร์ไรด์สมาชิกของอินเทอร์เฟซที่เป็น Abstract ตามปกติ
    }
 
-   interface User: Login {
-     var firstName: String
-     var lastName: String
-     fun name() = "$firstName $lastName"
-   }
+   - กรณีที่เราต้องการนำไปใช้งานโดยตรง อาจสร้างตัวแปรเพื่อใช้อ้างถึงออบเจ็กต์
+   ดังกล่าว เช่น
+   interface Math {
+    fun add(a: Int, b: Int) : Int
+    fun subtract(a: Int, b: Int) : Int
+    }
+    var mt = object: Math {
+        override fun add(a: Int, b: Int): Int = a + b
+        override fun subtract(a: Int, b: Int) = a - b
+    }
 
-   class Customer: User {
-     override var email = "..."
-     override var password = "..."
-     override var firstname = "..."
-   }
+    - ลักษณะที่ฟังก์ชัน (หรือ เมธอดของคลาส) รับพารามิเตอร์ที่เป็นแบบอินเทอร์เฟซ
+      - สร้างออบเจ็กต์ ของอินเทอร์เฟซพร้อมโอเวอร์ไรด์ แล้วนำไปกำหนดให้แก่พารา
+      มิเตอร์ตัวนั้น เช่น
+      var mt = object: Math {
+        override fun add(a: Int, b: Int): Int = a + b
+        override fun subtract(a: Int, b: Int) = a - b
+    }
 
-   - ในแต่ละคลาส สามารถสืบทอดอินเทอร์เฟซได้พร้อมกันมากกว่า 1 อัน คลาส กับ คลาส สามารถ
-   สืบทอดจากคลาสอื่นได้เพียงอันเดียว
-   - ในแต่ละคลาส สามารถสืบทอดพร้อมกันทั้งคลาสและอินเทอร์เฟซก็ได้
+    calculate(20, 5, mt)
 
-   interface OS
-   interface Camera
-   interface Display
-   open class Device
-   class Mobile: OS, Camera, Display
-   class Smartphone: Device(), OS, Camera, Display
+    - หรือนำออบเจ็กต์ของอินเทอร์เฟซมาใส่เป็นอาร์กิวเมนต์โดยตรง เพื่อลดทอนขั้นตอนที่
+    ต้องสร้างเป็นตัวแปรขึ้นมาก่อน
 
 * */
 
-interface Shape3D {
-    val PI: Double // Abstract Property
-    fun surfaceArea(): Int // Abstract Method
-    fun volume(): Int
-    fun shapeName(): String = this.javaClass.name
+interface Math {
+    fun add(a: Int, b: Int) : Int
+    fun subtract(a: Int, b: Int) : Int
 }
 
-class Box (var w: Int, var l: Int, var h: Int): Shape3D {
-    override var PI = 3.14
-    override fun volume(): Int = w * l * h
-    override fun surfaceArea() = (w * l * 2) + (w * h * 2) + (l * h * 2)
+interface MouseClick {
+    fun onclick()
 }
 
+fun calculate(x: Int, y: Int, math: Math) { // Math เป็นอินเทอร์เฟซ
+    println("$x + $y = ${math.add(x, y)}")
+    println("$x - $y = ${math.subtract(x, y)}")
+}
+
+class Button {
+    fun onMouseClick(m: MouseClick) {
+        m.onclick()
+    }
+}
 
 fun main(args: Array<String>) {
 
-    val b = Box(10, 20, 30)
-    println(b.shapeName())
-    println(b.volume())
+    calculate(20, 5, object: Math {
+        override fun add(a: Int, b: Int): Int = a + b
+        override fun subtract(a: Int, b: Int): Int = a - b
+    })
+
+    val bt = Button()
+    bt.onMouseClick(object: MouseClick {
+        override fun onclick() {
+            println("Mouse Click")
+        }
+    })
+
 }
