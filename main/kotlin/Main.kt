@@ -14,17 +14,36 @@ import kotlin.random.*
    - ไม่ต้องระบุโมดิฟายเออร์ open เป็น open โดยอัตโนมัติ
    - พร็อปเพอร์ตี้ห้ามกำหนดค่าเริ่มต้น
    - เมธอด ไม่กำหนดวิธีการทำงานใดๆ หรือ จะ กำหนดวิธีการทำงาน
+   - อินเทอร์เฟซ สามารถสืบทอดจากอินเทอร์เฟซด้วยกันเองได้ แต่เมื่อจะนำไปใช้งาน
+   ต้องสืบทอด ด้วยคลาสเหมือนเดิม
 
-   สภาพแวดล้อมของ Android Studio
-   - แท็บ Project ทำหน้าที่แสดงโครงสร้างรายการไฟล์ทั้งหมดในโปรเจ็ค
-   - แถบ widget เก็บรายการ widget ประเภทต่างๆ ใช้สำหรับออกแบบส่วน
-   แสดงผลในแต่ละหน้าจอ
-   - แถบ Design แสดงผลจำลอง ทำหน้าที่แสดงผลในแต่ละหน้าจอ ตามรายการไฟล์ที่
-   เลือกในโฟลเดอร์ /res/layout มี 3 โหมดคือ code, split และ design
-   หมายเหตุ
-   เมื่อออกแบบด้วย widget ต่างๆ จะได้สคริปต์ xml โดยอัตโนมัติ
+   interface Login {
+     var email: String
+     var password: String
+   }
 
+   interface User: Login {
+     var firstName: String
+     var lastName: String
+     fun name() = "$firstName $lastName"
+   }
 
+   class Customer: User {
+     override var email = "..."
+     override var password = "..."
+     override var firstname = "..."
+   }
+
+   - ในแต่ละคลาส สามารถสืบทอดอินเทอร์เฟซได้พร้อมกันมากกว่า 1 อัน คลาส กับ คลาส สามารถ
+   สืบทอดจากคลาสอื่นได้เพียงอันเดียว
+   - ในแต่ละคลาส สามารถสืบทอดพร้อมกันทั้งคลาสและอินเทอร์เฟซก็ได้
+
+   interface OS
+   interface Camera
+   interface Display
+   open class Device
+   class Mobile: OS, Camera, Display
+   class Smartphone: Device(), OS, Camera, Display
 
 * */
 
@@ -35,9 +54,16 @@ interface Shape3D {
     fun shapeName(): String = this.javaClass.name
 }
 
+class Box (var w: Int, var l: Int, var h: Int): Shape3D {
+    override var PI = 3.14
+    override fun volume(): Int = w * l * h
+    override fun surfaceArea() = (w * l * 2) + (w * h * 2) + (l * h * 2)
+}
+
 
 fun main(args: Array<String>) {
 
-
-
+    val b = Box(10, 20, 30)
+    println(b.shapeName())
+    println(b.volume())
 }
