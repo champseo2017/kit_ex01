@@ -2,41 +2,29 @@ import kotlin.random.*
 
 /*
 
-    การแปลงชนิดข้อมูลด้วย as และ as?
-    - การใช้ as (Unsafe Cast Operator)
-      ควรใช้ as เมื่อแน่ใจจริงๆ ว่าสามารถแปลงชนิดข้อมูลนั้นได้ มิฉะนั้นจะเกิดข้อ
-      ผิดพลาดขึ้น เช่น ลักษณะการใช้ as กับชนิดข้อมูลพื้นฐานและ Any
-
-      val a: Int = 10
-        val b: Double = a as Double // Runtime Error
-        val c = "123"
-        val d = c as Int // Runtime Error
-
-        var x: Any = 12.34
-        x++ // Error ชนิด Any ตำนวณไม่ได้
-        var y = x as Double // OK
-        y++
-        val z = x as Int // Runtime Error
-
-      - กรณีของคลาส
-       - อินสแตนซ์ของ Subclass ก็จะเป็นอินสแตนซ์ของ Superclass ของมันไปด้วย
-       - เราสามารถใช้ as เพื่อแปลงจาก Type ของ Subclass ไปเป็น Type ของ
-         Superclass
-       - ไม่สามารถแปลงจากชนิดข้อมูลของ Superclass ไปเป็นของ Subclass ได้
-
-       open class Tea
-class IceTea: Tea()
-var it = IceTea()
-    var t: Tea = it as Tea // OK (Subclass => Superclass)
-    var t2 = Tea()
-    var it2: IceTea = t2 as IceTea // Error (super => sub)
+    การใช้ as? (Safe Cast Operator)
+    - เป็นการแปลงชนิดข้อมูลที่ปลอดภัยกว่า เปลียนจาก as ไปใช้ as? แทน
+    ซึ้ง as? คือ หากแปลง Type ไม่ได้ จะคืนค่า null ดังนั้นต้องนำวิธีการแบบ
+    Nullable มาใช้ร่วมด้วย
 
 * */
+val a: Int = 10
+val b: Double? = a as? Double // null
+val c = "123"
+val d: Int? = (c as? Int) ?: 0
 
+fun test(x: Any) {
+    var y: Double? = x as? Double
+    val z: Int? = x as? Int
+}
+
+open class Tea
+class IceTea : Tea()
 
 fun main(args: Array<String>) {
 
-
+ var t = Tea()
+ var it: IceTea? = t as? IceTea // null
 
 
 }
