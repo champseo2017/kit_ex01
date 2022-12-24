@@ -2,93 +2,40 @@ import kotlin.random.*
 
 /*
 
-    การตรวจสอบชนิดข้อมูลด้วย is และ !is
-    - is ตรวจสอบตัวแปรหรืออินสแตนซ์ เป็นชนิดที่ระบุหรือไม่ หากใช้จะคืนค่า true
-    - !is จะใช้ในทางตรงกันข้ามคือ หากตัวแปรหรืออินสแตนซ์ ไม่ใช้ชนิดที่ระบุ จะคืนค่า true
+    การแปลงชนิดข้อมูลด้วย as และ as?
+    - การใช้ as (Unsafe Cast Operator)
+      ควรใช้ as เมื่อแน่ใจจริงๆ ว่าสามารถแปลงชนิดข้อมูลนั้นได้ มิฉะนั้นจะเกิดข้อ
+      ผิดพลาดขึ้น เช่น ลักษณะการใช้ as กับชนิดข้อมูลพื้นฐานและ Any
 
-    val a: Int = 10
-  var bool = a is Int // true
-  bool = a !is Double // Error เปรียบเทียบกันไม่ได้
-  bool = a !is Long // Error เปรียบเทียบกันไม่ได้
-  val b = 1.23
-  bool = b is Double // true
-  bool = b is Float // Error
+      val a: Int = 10
+        val b: Double = a as Double // Runtime Error
+        val c = "123"
+        val d = c as Int // Runtime Error
 
-  var x: Any = 10 // Any เปรียบเทียบกับชนิดใดก็ได้
-  println(x is Int) // true
-  println(x is Double) // false
-  println(x !is String) // true
-  x = "Hello"
-  println(x is Int) // false
-  println(x is String) // true
-  println(x is Any) // true
+        var x: Any = 12.34
+        x++ // Error ชนิด Any ตำนวณไม่ได้
+        var y = x as Double // OK
+        y++
+        val z = x as Int // Runtime Error
 
-  fun test(a: Any) {
-      if (a is Int) {
-          ...
-      } else if (a is Double) {
+      - กรณีของคลาส
+       - อินสแตนซ์ของ Subclass ก็จะเป็นอินสแตนซ์ของ Superclass ของมันไปด้วย
+       - เราสามารถใช้ as เพื่อแปลงจาก Type ของ Subclass ไปเป็น Type ของ
+         Superclass
+       - ไม่สามารถแปลงจากชนิดข้อมูลของ Superclass ไปเป็นของ Subclass ได้
 
-      }
-       หรือใช้ when เช่น
-       when (a) {
-        is Int -> ...
-       is Double -> ...
-       }
-  }
-
-  ลักษณะการเปรียบเทียบในแบบอินสแตนซ์ของคลาส
-    class One
-class Two
-
-val a = One()
-    val b = Two()
-    val x = a is One // true
-    // if (b is Two) {...} // true
-
-    open class Tea
+       open class Tea
 class IceTea: Tea()
-class Coffee
-
-val t = Tea()
-    println(t is Tea) // true
-    println(t is IceTea) // false
-
-    val it = IceTea()
-    println(it is Tea) // true
-    println(it is IceTea) // true
-
-    val cff = Coffee()
-    println(cff is Tea) // Error
+var it = IceTea()
+    var t: Tea = it as Tea // OK (Subclass => Superclass)
+    var t2 = Tea()
+    var it2: IceTea = t2 as IceTea // Error (super => sub)
 
 * */
 
 
-open class Tea
-class IceTea: Tea()
-
-fun drink(a: Any) {
-    println(when (a) {
-        is IceTea -> "IceTea"
-        is Tea -> "Tea"
-        else -> ""
-    })
-}
-
-fun drink2(d: Tea) {
-    println(when (d) {
-        is Tea -> "Tea"
-        is IceTea -> "IceTea"
-        else -> ""
-    })
-}
-
-
 fun main(args: Array<String>) {
 
-    val t = Tea()
-    val it = IceTea()
-    drink(t) // Tea
-    drink(it) // IceTea
 
 
 
