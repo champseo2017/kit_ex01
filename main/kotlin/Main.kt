@@ -32,21 +32,25 @@ import kotlin.random.*;
    * var data = Data<Int>(value = 123)
    data = Data<String>(value = "Kotlin") // Error
    data = Data(value = true) // Error
+
+   - ในบางคลาสอาจมี Generic Type มากกว่า 1 ชนิด ซึ้งเราต้องแทนด้วยตัวอักษรที่แตกต่างกัน
+   * เช่น
+   * class Info<T, U, V>(val x: T, val y: U, val z: V) {
+
+}
+   *
+   - ตัวอย่างคลาสที่มี Generic Type มากกว่า 1 ชนิด
+   *  - Pair<A, B>
+      - Triple<A, B, C>
 *
 *
 * */
 
-class Data<T>(value: T) {
-    private var v = value as Any
-    fun type() = v::class.simpleName
-    fun value(): T = v as T
-    fun setValue(value: T) {
-        v = value as Any
-    }
-}
 
-class Test
 
 fun main(args: Array<String>) {
-
+  val error = Pair<Int, String>(404, "Not Found")
+     // หรือ Pair(404, "Not Found")
+  val rgb = Triple<Int, Int, Int>(100, 150, 250)
+    // หรือ Triple(100, 150, 250)
 }
