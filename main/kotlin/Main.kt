@@ -1,69 +1,44 @@
 import java.util.*
 import java.*;
 import kotlin.random.*;
+import kotlin.reflect.typeOf
 
 /*
-*  คลาสแบบ Generic
-*  Generic Class เป็นการสร้างคลาสที่สามารถรองรับและจัดการข้อมูลได้หลายชนิด
-*
-*  - ใน Kotlin จะมี default type เป็นชนิด any อาจมีปัญหาเรื่อง Nullable ในขณะรัน
-* หากเรานำอินสแตนซ์ของ Generic Type ไปใช้งานโดยตรง ลองแปลงจาก Generic Type
-* ไปเป็นชนิด Any
-*
-* - เมื่อนำ Generic class ไปใช้งานในขั้นตอนการสร้างอินสแตนว์ต้องระบุชนิดข้อมูลที่แน่นอนให้กับคลาส
-*  ซึ้งสามารถกำหนดได้หลายแบบ หรือ ถ้าไม่ระบุชนิดข้อมูล คอมไพเลอร์จะพิจารณาจากค่าที่กำหนดให้แก่คอน
-* สตรักเตอร์
-*
-* val data1: Data<Int> = Data<Int>(100)
-  val data2: Data<Double> = Data(12.34)
-  val data3 = Data<String>("Hello")
-  val data4 = Data(true) // มีชนิดข้อมูลเป็น Boolean
-  print(data1.type())
+   ฟังก์ชันแบบ Generic
+   - Generic Function เป็นฟังกชันที่เราไม่กำหนด Type แบบเจาะจงเช่น
+   เดียวกับ Generic class
 
-  - Type ที่จะกำหนดให้แก่ Generic class ไม่ใช้ชนิดข้อมูลพื้นฐาน เราต้องกำหนดค่าเป็นอินสแตนซ์
-  ของคลาสดังกล่าวให้กับคอนสตรักเตอร์
-  * val test = Test()
-    val data1 = Data<Test>(test)
-    val data2 = Data<Test>(Test())
-    val data3 = Data(Test())
+   - การเรียกใช้ Generic Method ทำได้ 2 ลักษณะคือ
+     1. ให้กำหนด Type ไว้ใน <> วางไว้หน้าชื่อเมธอด
+     2. เรียกใช้งานเหมือน เมธอดทั่วไป ไม่ต้องใช้ <> คือ Type Inference
 
-   - อินสแตนซ์เดิมซึ่งได้กำหนดชนิดข้อมูล Generic Type เป็นอย่างใดอย่างหนึ่งไปแล้ว
-   * ไม่สามารถนำมาสร้างเพื่อกำหนด Type ใหม่ได้
-   * var data = Data<Int>(value = 123)
-   data = Data<String>(value = "Kotlin") // Error
-   data = Data(value = true) // Error
 
-   - ในบางคลาสอาจมี Generic Type มากกว่า 1 ชนิด ซึ้งเราต้องแทนด้วยตัวอักษรที่แตกต่างกัน
-   * เช่น
-   * class Info<T, U, V>(val x: T, val y: U, val z: V) {
-
-}
-   *
-   - ตัวอย่างคลาสที่มี Generic Type มากกว่า 1 ชนิด
-   *  - Pair<A, B>
-      - Triple<A, B, C>
-
-   - หลักการสืบทอดของคลาสที่เป็น Generic สรุปได้ดังนี้
-     - superclass เป็น Generic แล้ว subclass ก็ต้องเป็น generic ด้วย
-     - superclass ไม่เป็น generic แต่ subclass อาจเป็น generic ได้
-*
-*
 * */
 
-open class First<T> // คลาส First เป็น Generic
-class Second<T>: First<T>() // คลาส Second ต้องเป็น Generic ด้วย
+class Data<T>(value: T) {
+  // Generic type class
+  private var v = value as Any
 
-open class Third // คลาส Thrid ไม่เป็น Generic
-class Fourth<T> : Third() // คลาส Fourth อาจเป็น Generic ก็ได้
+  fun type() = v::class.simpleName
 
-open class Fifth<T: Number> // T: Number = type constraint
-class Sixth<T: Number> : Fifth<T>()
+  fun value() : T = v as T
 
+  fun setValue(value: T) {
+    this.v = value as Any
+  }
 
+  fun <U>typeOf(value: U) = (value as Any)::class.simpleName
+  // Generic type function
+
+}
 
 fun main(args: Array<String>) {
-  val error = Pair<Int, String>(404, "Not Found")
-     // หรือ Pair(404, "Not Found")
-  val rgb = Triple<Int, Int, Int>(100, 150, 250)
-    // หรือ Triple(100, 150, 250)
+
+  // val t1 = typeOf<String>("Hello")
+  // val t2 = typeOf(123) Type Inference
+
+  val data = Data<Double>(12.34)
+  val t3 = data.typeOf<Double>(12.34)
+  val t4 = data.typeOf('a') // Type Inference
+
 }
