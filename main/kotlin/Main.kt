@@ -4,41 +4,41 @@ import kotlin.random.*;
 import kotlin.reflect.typeOf
 
 /*
-   ฟังก์ชันแบบ Generic
-   - Generic Function เป็นฟังกชันที่เราไม่กำหนด Type แบบเจาะจงเช่น
-   เดียวกับ Generic class
 
-   - การเรียกใช้ Generic Method ทำได้ 2 ลักษณะคือ
-     1. ให้กำหนด Type ไว้ใน <> วางไว้หน้าชื่อเมธอด
-     2. เรียกใช้งานเหมือน เมธอดทั่วไป ไม่ต้องใช้ <> คือ Type Inference
+  ขอบเขตของ Generic Type
+  - เป็นการกำหนด Generic Type ที่จะนำมาใช้ได้ หรือ เรียกว่า Type Constraint
+  คือ การอณุญาติให้เฉพาะคลาสที่สืบทอดมาจาก Type ที่ระบุเท่านั้น ที่สามารถนำมากำหนด
+  เป็น Generic Type ได้
+  - ระบุเป็น <T:Supertype> เหมือน superclass เช่น สมมุติว่า เฉพาะคลาสที่สืบทอดมา
+  จาก Number (เช่น Int, Double, Float เป็นต้น)
 
+  - พารามิเตอร์แบบ variable Argument
+    - Variable (Number Of)-Argument เป็น พารามิเตอร์ที่ใช้รับข้อมูลที่ไม่แน่นอน
+    - การใช้งานวางคีย์เวิร์ด vararg ไว้หน้าชื่อพารามิเตอร์ เช่น vararg data: Int
+    - เข้าถึงค่าแบบ array
+    - ในฟังก์ชันหรือ class จะมี พารามิเตอร์แบบ vararg ได้เพียงตัวเดียว
 
 * */
 
-class Data<T>(value: T) {
-  // Generic type class
-  private var v = value as Any
+class Data<T: Number>(var value: T){}
 
-  fun type() = v::class.simpleName
-
-  fun value() : T = v as T
-
-  fun setValue(value: T) {
-    this.v = value as Any
+fun <T: Number>sum(vararg data: T) : T {
+  var total = 0.0
+  for (x in data) {
+    if (x is Int) {
+      total += x.toDouble()
+    } else if (x is Double) {
+      total += x
+    } else if (x is Float) {
+      total += x
+    }
   }
-
-  fun <U>typeOf(value: U) = (value as Any)::class.simpleName
-  // Generic type function
-
+  return total as T
 }
+
 
 fun main(args: Array<String>) {
 
-  // val t1 = typeOf<String>("Hello")
-  // val t2 = typeOf(123) Type Inference
 
-  val data = Data<Double>(12.34)
-  val t3 = data.typeOf<Double>(12.34)
-  val t4 = data.typeOf('a') // Type Inference
 
 }
