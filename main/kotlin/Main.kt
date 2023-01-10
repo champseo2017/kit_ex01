@@ -42,9 +42,22 @@ import kotlin.random.*;
    - ตัวอย่างคลาสที่มี Generic Type มากกว่า 1 ชนิด
    *  - Pair<A, B>
       - Triple<A, B, C>
+
+   - หลักการสืบทอดของคลาสที่เป็น Generic สรุปได้ดังนี้
+     - superclass เป็น Generic แล้ว subclass ก็ต้องเป็น generic ด้วย
+     - superclass ไม่เป็น generic แต่ subclass อาจเป็น generic ได้
 *
 *
 * */
+
+open class First<T> // คลาส First เป็น Generic
+class Second<T>: First<T>() // คลาส Second ต้องเป็น Generic ด้วย
+
+open class Third // คลาส Thrid ไม่เป็น Generic
+class Fourth<T> : Third() // คลาส Fourth อาจเป็น Generic ก็ได้
+
+open class Fifth<T: Number> // T: Number = type constraint
+class Sixth<T: Number> : Fifth<T>()
 
 
 
